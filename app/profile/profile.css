@@ -1,0 +1,30 @@
+.profile-holder {
+    margin-left: 240px;
+    margin-top: 20px;
+    background-color: darkgray;
+}
+
+.request-background {
+    background-color: #d7d7d7;
+}
+
+.request-padding {
+    padding: 20px;
+}
+
+.btn-control {
+    background-color: darkgray;
+    border-color: darkgray;
+    color: #fffb2f;
+    margin: 0 auto;
+}
+
+
+.requests-holder {
+    margin-left: 240px;
+    margin-top: 20px;
+}
+
+.inner-profile-holder {
+    padding: 20px;
+}

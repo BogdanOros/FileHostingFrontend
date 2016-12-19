@@ -1,0 +1,29 @@
+.control-panel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-div {
+    width: 400px;
+    height: 160px;
+    margin-left: 20px;
+}
+
+.btn-control {
+    margin-left: 5px;
+    background-color: darkgray;
+    border-color: darkgray;
+    color: #fffb2f;
+}
+
+.btn-control:first-child {
+    margin-left: 0;
+}
+
+.search-bar-block {
+    margin-top: 10px;
+}
+
+.search-bar {
+    width: 400px;
+}

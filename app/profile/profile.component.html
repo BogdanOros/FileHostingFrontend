@@ -1,0 +1,45 @@
+<div class="profile-holder container">
+    <div *ngIf="isLoaded" class="inner-profile-holder">
+        <h3>User profile</h3>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <span id="username">{{user.username}}</span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <span id="email">{{user.email}}</span>
+        </div>
+        <div class="form-group">
+            <label for="firstname">First name:</label>
+            <span id="firstname">{{user.first_name}}</span>
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last name:</label>
+            <span id="lastname">{{user.last_name}}</span>
+        </div>
+    </div>
+</div>
+<div *ngIf="isLoaded && showUserRequests()" class="requests-holder container">
+    <h3>Active requests: </h3>
+    <div *ngFor="let request of user.requests">
+        <div class="request-background">
+            <div class="request-padding">
+                <div class="form-group">
+                    <label for="request_username">Username:</label>
+                    <span id="request_username">{{request.username}}</span>
+                </div>
+                <div class="form-group">
+                    <label for="request_data">Date:</label>
+                    <span id="request_data">{{showCorrectDate(request.date.$date)}}</span>
+                </div>
+                <div class="btn btn-primary btn-control" (click)="acceptRequest(request)">
+                    Accept
+                </div>
+                <div class="btn btn-primary btn-control" (click)="declineRequest(request)">
+                    Decline
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+.background-filler {
+    background-color: darkgray;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,.2);
+    height: 46px;
+    line-height: 46px;
+    display: flex;
+}
+
+.header-format {
+    color: #fffb2f;
+    font-weight: 600;
+    font-size: 32px;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.3);
+    margin-left: 8px;
+}

@@ -1,0 +1,27 @@
+.sign-up-format {
+    color: #fffb2f;
+    font-weight: 500;
+    font-size: 20px;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.3);
+    text-align: right;
+}
+
+.vertical-line {
+    border-right: 1px  solid #fffb2f;
+    padding-right: 22px;
+}
+
+.sing-up-text {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.modal-div {
+    width: 400px;
+    height: 600px;
+    margin-left: 20px;
+}
+
+.modal-title {
+    text-align: center;
+}

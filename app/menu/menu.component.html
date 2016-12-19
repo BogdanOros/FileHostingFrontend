@@ -1,0 +1,20 @@
+<div *ngIf="dataLoaded" class="background-filler">
+    <div class="menu-image">
+        <img src="/app/menu/resources/hostingimage.png">
+    </div>
+    <div class="menu-element-filler">
+        <a [routerLink] = '["folders"]' class="menu-element">
+            Folders
+        </a>
+    </div>
+    <div class="menu-element-filler">
+        <a [routerLink] = '["profile", loggedUser.username]' class="menu-element">
+            Profile
+        </a>
+    </div>
+    <div class="menu-element-filler">
+        <a [routerLink] = '["contacts"]' class="menu-element">
+            Contacts
+        </a>
+    </div>
+</div>

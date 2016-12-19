@@ -1,0 +1,30 @@
+#folders, #files {
+    width: 100px;
+    height: 100px;
+    user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+}
+div {
+    display: inline-block;
+}
+
+p {
+    text-align: center;
+}
+
+.folder-holder {
+    margin-left: 210px;
+}
+
+.folder-wrapper-cont {
+    margin-left: 20px;
+    box-sizing: border-box;
+}
+
+.folder-active {
+    border: 1px solid black;
+}
+.folder-wrapper-cont:hover{
+    cursor: pointer;
+}

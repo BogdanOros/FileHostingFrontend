@@ -1,0 +1,33 @@
+<div>
+    <modal #myModal>
+        <div class="modal-div">
+            <div class="form-group">
+                <label for="folder-name">New folder name:</label>
+                <input #folderName type="text" class="form-control" id="folder-name">
+            </div>
+            <input type="submit" class="btn btn-primary" (click)="createFolder(folderName.value)">
+        </div>
+    </modal>
+
+    <modal #updateModal>
+        <div class="modal-div">
+            <div class="form-group">
+                <label for="update-name">Folder name:</label>
+                <input [value]="getActiveFolderName()" #updateName type="text" class="form-control" id="update-name">
+            </div>
+            <input type="submit" class="btn btn-primary" (click)="updateObject(updateName.value)">
+        </div>
+    </modal>
+
+    <div class="container control-panel">
+        <input *ngIf="!isFolderMain()" class="btn btn-primary btn-control" value="Back" type="button" (click)="returnToPrevFolder()">
+        <input class="btn btn-primary btn-control" value="Create" type="button" (click)="openModal()">
+        <input *ngIf="isObjectSelected()" class="btn btn-primary btn-control" value="Delete" type="button" (click)="deleteObject()">
+        <input *ngIf="isObjectSelected()" class="btn btn-primary btn-control" value="Update" type="button" (click)="openUpdateModal()">
+        <input class="btn btn-primary btn-control inputfile" value="Upload" type="file" (change)="onChange($event)">
+        <div class="input-group search-bar-block">
+            <input #searchBar type="text" class="form-control search-bar">
+            <input type="button" value="Search" class="btn btn-primary btn-control" (click)="searchRequestPushed(searchBar.value)">
+        </div>
+    </div>
+</div>

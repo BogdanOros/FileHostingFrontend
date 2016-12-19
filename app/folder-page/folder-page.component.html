@@ -1,0 +1,23 @@
+<div *ngIf="isLoaded" class="folder-holder">
+    <folder-control-panel
+            (updateRequest)="updateObject($event)"
+            (deleteRequest)="deleteObject($event)"
+            (createRequest)="appendFolder($event)"
+            (returnRequest)="returnToFolder($event)"
+            (searchRequest)="searchRequest($event)"
+            (fileUploadRequest)="uploadFile($event)">
+    </folder-control-panel>
+    <div class="folder-wrapper-cont" *ngFor="let folder of subfolders" >
+        <div [class.folder-active] = "activeObject == folder" (dblclick)="openFolder(folder, false)" (click)="setActiveObject(folder)">
+            <img id="folders" src="/app/folder-page/resource/folder.jpg">
+            <p>{{folder.title}}</p>
+        </div>
+    </div>
+    <div class="folder-wrapper-cont" *ngFor="let file of files" >
+        <div [class.folder-active] = "activeObject == file" (dblclick)="downloadFile(file)" (click)="setActiveObject(file)">
+            <img id="files" src="/app/folder-page/resource/file_icon.png">
+            <p>{{file.filename}}</p>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,32 @@
+.background-filler {
+    background-color: darkgray;
+    box-shadow: 4px 2px 4px 0 rgba(0,0,0,.2);
+    padding: 10px 0 0;
+    width: 210px;
+    position: fixed;
+    height: calc(100% - 48px);
+}
+
+.menu-element {
+    color: #fffb2f !important;
+    font-weight: 500;
+    font-size: 20px;
+    /*text-shadow: 2px 2px 1px rgba(0,0,0,0.3);*/
+    margin-left: 25px;
+
+}
+
+.menu-element-filler {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.menu-element-filler:hover {
+    background-color: #929292;
+}
+
+.menu-image {
+    margin-left: 5px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
