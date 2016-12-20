@@ -21,9 +21,20 @@ export class SignInComponent {
 
     username: string;
     password: string;
+    rememberedMe: boolean;
 
     @ViewChild('loginModal')
     modal: ModalComponent;
+
+    @ViewChild('restorePasswordModal')
+    emailVerifModal: ModalComponent;
+
+    restoreEmail: string;
+
+    // Contants
+    REMEMBER_ME_CHECK: string = 'dataRemembered';
+    USERNAME: string = 'username';
+    PASSWORD: string = 'password';
 
     constructor(private loginService: LoginProviderService,
                 private userHolder: UserHolderService) {
@@ -43,7 +54,7 @@ export class SignInComponent {
             this.loginService.createLogoutRequest()
                 .subscribe((data: string) => this.logoutFinished());
         } else {
-            this.modal.open();
+            this.openLoginModalWindow();
         }
     }
 
@@ -75,6 +86,8 @@ export class SignInComponent {
         localStorage.setItem('email',  this.userHolder.getCurrentUser().email);
         localStorage.setItem('first_name',  this.userHolder.getCurrentUser().first_name);
         localStorage.setItem('last_name',  this.userHolder.getCurrentUser().last_name);
+        localStorage.setItem(this.PASSWORD, this.password);
+        localStorage.setItem(this.REMEMBER_ME_CHECK, this.rememberedMe);
         this.changeButtonText();
     }
 
@@ -84,6 +97,33 @@ export class SignInComponent {
         } else {
             this.buttonText = HeaderConstants.logoutButton;
         }
+    }
+
+    openLoginModalWindow() {
+        this.initInputData();
+        this.modal.open();
+    }
+
+    // Modal window subfunctions
+    initInputData() {
+        this.rememberedMe = localStorage.getItem(this.REMEMBER_ME_CHECK);
+        if (!this.rememberedMe) {
+            // Using two-way binding
+            this.username = null;
+            this.password = null;
+        } else {
+            this.username = localStorage.getItem(this.USERNAME);
+            this.password = localStorage.getItem(this.PASSWORD);
+        }
+    }
+
+    changeRememberField(element: HTMLInputElement) {
+        this.rememberedMe = element.checked;
+    }
+
+    openEmailVerifModalWindow() {
+        this.modal.close();
+        this.emailVerifModal.open();
     }
 
 }

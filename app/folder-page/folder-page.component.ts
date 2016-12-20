@@ -5,11 +5,13 @@ import {Component} from '@angular/core'
 import {Folder} from './folder-page-services/folder'
 import { File } from './folder-page-services/File'
 import { FileHelperService } from './folder-page-services/FIleHelperService'
-import { SavedObject } from './folder-page-services/SavedObject'
+
+import { UserHolderService } from './../user/UserHolderService'
 
 import {FoldersLoaderService} from './folder-page-services/FolderService'
 import { ActiveFolderHolder } from './folder-page-services/ActiveFolderHolder'
 import { FileUploadProvider } from './../control-panel/FileUploader'
+
 @Component({
     selector: 'folder-page',
     templateUrl: '/app/folder-page/folder-page.component.html',
@@ -27,6 +29,7 @@ export class FolderPageComponent {
     constructor(private folderProvider: FoldersLoaderService,
                 private fileUploader: FileUploadProvider,
                 private fileHelperService: FileHelperService,
+                private userService: UserHolderService,
                 private folderHolder: ActiveFolderHolder) {
         this.isLoaded = false;
     }
@@ -47,10 +50,14 @@ export class FolderPageComponent {
         };
     }
     ngOnInit() {
-        this.folderProvider.getAll().
-        subscribe((data:Folder) => this.onFirstDownload(data),
-            error => console.log(error),
-            () => this.dataLoaded());
+        if (this.userService.isUserAuthorized()) {
+            this.folderProvider.getAll().
+            subscribe(
+                (data:Folder) => this.onFirstDownload(data),
+                error => console.log(error),
+                () => this.dataLoaded()
+            );
+        }
     }
 
     onFirstDownload(data) {
@@ -148,7 +155,7 @@ export class FolderPageComponent {
         console.log(blobUrl);
         let filename =  this.fileHelperService.getCorrectFileName(file);
         this.download(blobed, filename, contentType);
-        window.location = blobUrl;
+        // window.location = blobUrl;
     }
 
     base64toBlob(base64Data, contentType) {
@@ -198,5 +205,4 @@ export class FolderPageComponent {
         this.folderProvider.searchRequest(query)
             .subscribe((data:Folder) => this.folder = data, error => console.log(error), () => this.dataLoaded());
     }
-
 }

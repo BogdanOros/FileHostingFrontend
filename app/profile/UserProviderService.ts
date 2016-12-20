@@ -43,14 +43,17 @@ export class UserProviderService {
             .map((response:Response) => <number>response.json());
     }
 
-    public acceptRequest(requestId: number): Observable<void> {
+    public acceptRequest(requestId: number): Observable<string> {
         let toAdd = JSON.stringify({request_id: requestId});
         return this.http.post(this.base_url + '/accept_request', toAdd, {headers: this.headers})
+            .map((response:Response) => <string>response.json());
+
     }
 
-    public declineRequest(requestId: number): Observable<void> {
+    public declineRequest(requestId: number): Observable<string> {
         let toAdd = JSON.stringify({request_id: requestId});
         return this.http.post(this.base_url + '/decline_request', toAdd, {headers: this.headers})
+            .map((response:Response) => <string>response.json());
     }
 
 }

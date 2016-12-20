@@ -21,6 +21,10 @@ var SignInComponent = (function () {
     function SignInComponent(loginService, userHolder) {
         this.loginService = loginService;
         this.userHolder = userHolder;
+        // Contants
+        this.REMEMBER_ME_CHECK = 'dataRemembered';
+        this.USERNAME = 'username';
+        this.PASSWORD = 'password';
         if (localStorage.getItem('token') != null) {
             var username = localStorage.getItem('username');
             var email = localStorage.getItem('email');
@@ -37,7 +41,7 @@ var SignInComponent = (function () {
                 .subscribe(function (data) { return _this.logoutFinished(); });
         }
         else {
-            this.modal.open();
+            this.openLoginModalWindow();
         }
     };
     SignInComponent.prototype.ngOnInit = function () {
@@ -64,6 +68,8 @@ var SignInComponent = (function () {
         localStorage.setItem('email', this.userHolder.getCurrentUser().email);
         localStorage.setItem('first_name', this.userHolder.getCurrentUser().first_name);
         localStorage.setItem('last_name', this.userHolder.getCurrentUser().last_name);
+        localStorage.setItem(this.PASSWORD, this.password);
+        localStorage.setItem(this.REMEMBER_ME_CHECK, this.rememberedMe);
         this.changeButtonText();
     };
     SignInComponent.prototype.changeButtonText = function () {
@@ -74,6 +80,30 @@ var SignInComponent = (function () {
             this.buttonText = header_constants_1.HeaderConstants.logoutButton;
         }
     };
+    SignInComponent.prototype.openLoginModalWindow = function () {
+        this.initInputData();
+        this.modal.open();
+    };
+    // Modal window subfunctions
+    SignInComponent.prototype.initInputData = function () {
+        this.rememberedMe = localStorage.getItem(this.REMEMBER_ME_CHECK);
+        if (!this.rememberedMe) {
+            // Using two-way binding
+            this.username = null;
+            this.password = null;
+        }
+        else {
+            this.username = localStorage.getItem(this.USERNAME);
+            this.password = localStorage.getItem(this.PASSWORD);
+        }
+    };
+    SignInComponent.prototype.changeRememberField = function (element) {
+        this.rememberedMe = element.checked;
+    };
+    SignInComponent.prototype.openEmailVerifModalWindow = function () {
+        this.modal.close();
+        this.emailVerifModal.open();
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
@@ -82,6 +112,10 @@ var SignInComponent = (function () {
         core_1.ViewChild('loginModal'), 
         __metadata('design:type', ng2_bs3_modal_1.ModalComponent)
     ], SignInComponent.prototype, "modal", void 0);
+    __decorate([
+        core_1.ViewChild('restorePasswordModal'), 
+        __metadata('design:type', ng2_bs3_modal_1.ModalComponent)
+    ], SignInComponent.prototype, "emailVerifModal", void 0);
     SignInComponent = __decorate([
         core_1.Component({
             selector: 'sign-in',

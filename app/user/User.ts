@@ -8,6 +8,7 @@ export class User {
     first_name: string;
     last_name: string;
     is_friend: number;
+    requests: any;
     imageUrl: string;
     currentImageUrl: string;
 

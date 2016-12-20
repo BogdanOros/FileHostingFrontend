@@ -13,14 +13,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require('@angular/core');
 var FIleHelperService_1 = require('./folder-page-services/FIleHelperService');
+var UserHolderService_1 = require('./../user/UserHolderService');
 var FolderService_1 = require('./folder-page-services/FolderService');
 var ActiveFolderHolder_1 = require('./folder-page-services/ActiveFolderHolder');
 var FileUploader_1 = require('./../control-panel/FileUploader');
 var FolderPageComponent = (function () {
-    function FolderPageComponent(folderProvider, fileUploader, fileHelperService, folderHolder) {
+    function FolderPageComponent(folderProvider, fileUploader, fileHelperService, userService, folderHolder) {
         this.folderProvider = folderProvider;
         this.fileUploader = fileUploader;
         this.fileHelperService = fileHelperService;
+        this.userService = userService;
         this.folderHolder = folderHolder;
         this.socket_path = 'ws://localhost:8080/websocket';
         this.isLoaded = false;
@@ -42,8 +44,10 @@ var FolderPageComponent = (function () {
     };
     FolderPageComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.folderProvider.getAll().
-            subscribe(function (data) { return _this.onFirstDownload(data); }, function (error) { return console.log(error); }, function () { return _this.dataLoaded(); });
+        if (this.userService.isUserAuthorized()) {
+            this.folderProvider.getAll().
+                subscribe(function (data) { return _this.onFirstDownload(data); }, function (error) { return console.log(error); }, function () { return _this.dataLoaded(); });
+        }
     };
     FolderPageComponent.prototype.onFirstDownload = function (data) {
         this.folder = data;
@@ -137,7 +141,7 @@ var FolderPageComponent = (function () {
         console.log(blobUrl);
         var filename = this.fileHelperService.getCorrectFileName(file);
         this.download(blobed, filename, contentType);
-        window.location = blobUrl;
+        // window.location = blobUrl;
     };
     FolderPageComponent.prototype.base64toBlob = function (base64Data, contentType) {
         contentType = contentType || '';
@@ -189,7 +193,7 @@ var FolderPageComponent = (function () {
             templateUrl: '/app/folder-page/folder-page.component.html',
             styleUrls: ['app/folder-page/images.css'],
         }), 
-        __metadata('design:paramtypes', [FolderService_1.FoldersLoaderService, FileUploader_1.FileUploadProvider, FIleHelperService_1.FileHelperService, ActiveFolderHolder_1.ActiveFolderHolder])
+        __metadata('design:paramtypes', [FolderService_1.FoldersLoaderService, FileUploader_1.FileUploadProvider, FIleHelperService_1.FileHelperService, UserHolderService_1.UserHolderService, ActiveFolderHolder_1.ActiveFolderHolder])
     ], FolderPageComponent);
     return FolderPageComponent;
 }());

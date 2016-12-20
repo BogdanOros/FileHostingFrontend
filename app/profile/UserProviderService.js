@@ -42,11 +42,13 @@ var UserProviderService = (function () {
     };
     UserProviderService.prototype.acceptRequest = function (requestId) {
         var toAdd = JSON.stringify({ request_id: requestId });
-        return this.http.post(this.base_url + '/accept_request', toAdd, { headers: this.headers });
+        return this.http.post(this.base_url + '/accept_request', toAdd, { headers: this.headers })
+            .map(function (response) { return response.json(); });
     };
     UserProviderService.prototype.declineRequest = function (requestId) {
         var toAdd = JSON.stringify({ request_id: requestId });
-        return this.http.post(this.base_url + '/decline_request', toAdd, { headers: this.headers });
+        return this.http.post(this.base_url + '/decline_request', toAdd, { headers: this.headers })
+            .map(function (response) { return response.json(); });
     };
     UserProviderService = __decorate([
         core_1.Injectable(), 

@@ -3,17 +3,49 @@
         {{ buttonText }}
     </span>
 </div>
-<modal #loginModal>
-    <div class="modal-div">
-        <h3 class="modal-title">Login</h3>
-        <div class="form-group">
-            <label for="login">Name:</label>
-            <input [(ngModel)]="username" type="text" class="form-control" id="login">
+<modal #loginModal class="modal-div">
+        <div class="modal-title-container">
+            <h3 class="modal-title">Login</h3>
         </div>
-        <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input [(ngModel)]="password" type="password" class="form-control" id="pwd">
+        <div class="sign-in-container">
+            <div class="form-group">
+                <label for="login">Name:</label>
+                <input [(ngModel)]="username"
+                       type="text" class="form-control sign-in-input" id="login"
+                >
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input [(ngModel)]="password"
+                       type="password" class="form-control" id="pwd"
+                >
+            </div>
+            <button (click)="sendLoginRequest()" class="btn btn-primary btn-sign-in-modal">Sign in</button>
+
+            <input #rememberMe id="rememberMeCheck" type="checkbox" (change)="changeRememberField(rememberMe)">
+            <label class="remember-me-label" for="rememberMeCheck">Remember me</label>
+
+            <span id="restore-password-link" (click)="openEmailVerifModalWindow()">Restore password</span>
+
         </div>
-        <button (click)="sendLoginRequest()" class="btn btn-primary">Sign in</button>
+</modal>
+
+<modal #restorePasswordModal class="modal-div">
+    <div class="modal-title-container">
+        <h3 class="modal-title">Password restoring</h3>
+    </div>
+    <div class="sign-in-container">
+        <div class="form-group">
+            <p>
+                Please, enter your email account to send password restore code
+            </p>
+            <input [(ngModel)]="restoreEmail"
+                   type="email" class="form-control sign-in-input" id="restore-pass"
+                   placeholder="Email"
+            >
+        </div>
+        <button class="btn btn-primary btn-sign-in-modal">
+            Next
+        </button>
     </div>
 </modal>
