@@ -7,7 +7,10 @@ import { HeaderConstants } from '../header.constants';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { LoginProviderService } from './login-services/loginService';
 import { UserHolderService } from '../../user/UserHolderService';
+import { LocalStorageProvider } from './login-services/localStorageUpdater';
+
 import { User } from '../../user/User';
+import { LoginMeta } from './login-services/loginData';
 
 @Component({
     selector : 'sign-in',
@@ -19,34 +22,25 @@ export class SignInComponent {
     @Input()
     buttonText: string;
 
-    username: string;
-    password: string;
-    rememberedMe: boolean;
-
     @ViewChild('loginModal')
-    modal: ModalComponent;
+    loginModal: ModalComponent;
 
     @ViewChild('restorePasswordModal')
     emailVerifModal: ModalComponent;
 
+    loginData: LoginMeta;
     restoreEmail: string;
 
-    // Contants
-    REMEMBER_ME_CHECK: string = 'dataRemembered';
-    USERNAME: string = 'username';
-    PASSWORD: string = 'password';
+    showErrorMessage: boolean;
+    errorMessage: string;
 
-    constructor(private loginService: LoginProviderService,
-                private userHolder: UserHolderService) {
-        if (localStorage.getItem('token') != null) {
-            let username = localStorage.getItem('username');
-            let email = localStorage.getItem('email');
-            let first_name = localStorage.getItem('first_name');
-            let last_name = localStorage.getItem('last_name');
-            let user = new User(username, email, first_name, last_name);
-            this.userHolder.setCurrentUser(user);
-        }
-
+    constructor(
+        private loginService: LoginProviderService,
+        private localStorageProvider : LocalStorageProvider,
+        private userHolder: UserHolderService
+    ) {
+        this.userHolder.setCurrentUser(this.localStorageProvider.getUserIfExists());
+        this.loginData = new LoginMeta();
     }
 
     openModal(){
@@ -63,7 +57,11 @@ export class SignInComponent {
     }
 
     sendLoginRequest() {
-       this.loginService.createSignInRequest(this.username, this.password)
+        if (!this.checkInputEntered()) {
+            this.showEmptyInputErrorMessage();
+            return;
+        }
+        this.loginService.createSignInRequest(this.loginData.username, this.loginData.password)
            .subscribe((user: User) => this.userHolder.setCurrentUser(user),
                error => console.log(error),
                () => this.authorizationFinished())
@@ -71,24 +69,19 @@ export class SignInComponent {
 
     logoutFinished() {
         this.userHolder.clearAuthorizedUser();
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.removeItem('email');
-        localStorage.removeItem('first_name');
-        localStorage.removeItem('last_name');
+        this.localStorageProvider.removeUsersDataFromLocalStorage();
         this.changeButtonText();
     }
 
     authorizationFinished() {
-        this.modal.close();
-        localStorage.setItem('token', '8619c86a6189c2710b9862e4488e46ff148f0229');
-        localStorage.setItem('username',  this.userHolder.getCurrentUser().username);
-        localStorage.setItem('email',  this.userHolder.getCurrentUser().email);
-        localStorage.setItem('first_name',  this.userHolder.getCurrentUser().first_name);
-        localStorage.setItem('last_name',  this.userHolder.getCurrentUser().last_name);
-        localStorage.setItem(this.PASSWORD, this.password);
-        localStorage.setItem(this.REMEMBER_ME_CHECK, this.rememberedMe);
+        this.localStorageProvider.saveUsersDataToLocalStorage(this.userHolder.getCurrentUser());
+        this.localStorageProvider.saveUsersSignInMetadata(this.loginData.password, this.loginData.remembered);
         this.changeButtonText();
+        this.loginModal.close();
+    }
+
+    checkInputEntered() {
+        return this.loginData.username.length > 0 && this.loginData.password.length > 0;
     }
 
     changeButtonText() {
@@ -101,29 +94,22 @@ export class SignInComponent {
 
     openLoginModalWindow() {
         this.initInputData();
-        this.modal.open();
+        this.loginModal.open();
     }
 
     // Modal window subfunctions
     initInputData() {
-        this.rememberedMe = localStorage.getItem(this.REMEMBER_ME_CHECK);
-        if (!this.rememberedMe) {
-            // Using two-way binding
-            this.username = null;
-            this.password = null;
-        } else {
-            this.username = localStorage.getItem(this.USERNAME);
-            this.password = localStorage.getItem(this.PASSWORD);
-        }
-    }
-
-    changeRememberField(element: HTMLInputElement) {
-        this.rememberedMe = element.checked;
+        this.localStorageProvider.initSignInModalInputData(this.loginData);
     }
 
     openEmailVerifModalWindow() {
-        this.modal.close();
+        this.loginModal.close();
         this.emailVerifModal.open();
+    }
+
+    showEmptyInputErrorMessage() {
+        this.errorMessage = "Please, fill the inputs";
+        this.showErrorMessage = true;
     }
 
 }

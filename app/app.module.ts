@@ -26,8 +26,10 @@ import { ActiveFolderHolder } from "./folder-page/folder-page-services/ActiveFol
 import { LoginProviderService } from "./header/login/login-services/loginService";
 import { RegisterProviderService } from "./header/register/register-folder/registerService";
 import { UserHolderService } from "./user/UserHolderService";
-import { UserProviderService } from './profile/UserProviderService'
-import { FileUploadProvider } from "./control-panel/FileUploader"
+import { UserProviderService } from './profile/UserProviderService';
+import { FileUploadProvider } from "./control-panel/FileUploader";
+
+import { LocalStorageProvider } from './header/login/login-services/localStorageUpdater';
 
 import { HeaderConstants } from "./header/header.constants";
 
@@ -71,6 +73,7 @@ export const AppRoutes: Routes = [
         FileUploadProvider,
         UserProviderService,
         FileHelperService,
+        LocalStorageProvider,
         HeaderConstants
     ],
     bootstrap: [ AppComponent ]

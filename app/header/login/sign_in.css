@@ -14,7 +14,7 @@
     position: relative;
     margin: auto;
     width: 600px;
-    height: 400px;
+    height: 450px;
     outline: none;
 }
 
@@ -63,4 +63,10 @@
 }
 #restore-password-link:hover {
     text-decoration: underline;
+}
+
+#error-message-span {
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0 10px 0;
 }

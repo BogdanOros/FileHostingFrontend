@@ -36,6 +36,7 @@ var registerService_1 = require("./header/register/register-folder/registerServi
 var UserHolderService_1 = require("./user/UserHolderService");
 var UserProviderService_1 = require('./profile/UserProviderService');
 var FileUploader_1 = require("./control-panel/FileUploader");
+var localStorageUpdater_1 = require('./header/login/login-services/localStorageUpdater');
 var header_constants_1 = require("./header/header.constants");
 exports.AppRoutes = [
     { path: '', redirectTo: '/folders', pathMatch: 'full' },
@@ -78,6 +79,7 @@ var AppModule = (function () {
                 FileUploader_1.FileUploadProvider,
                 UserProviderService_1.UserProviderService,
                 FIleHelperService_1.FileHelperService,
+                localStorageUpdater_1.LocalStorageProvider,
                 header_constants_1.HeaderConstants
             ],
             bootstrap: [app_component_1.AppComponent]

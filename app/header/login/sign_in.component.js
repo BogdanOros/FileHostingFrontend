@@ -16,23 +16,15 @@ var header_constants_1 = require('../header.constants');
 var ng2_bs3_modal_1 = require('ng2-bs3-modal/ng2-bs3-modal');
 var loginService_1 = require('./login-services/loginService');
 var UserHolderService_1 = require('../../user/UserHolderService');
-var User_1 = require('../../user/User');
+var localStorageUpdater_1 = require('./login-services/localStorageUpdater');
+var loginData_1 = require('./login-services/loginData');
 var SignInComponent = (function () {
-    function SignInComponent(loginService, userHolder) {
+    function SignInComponent(loginService, localStorageProvider, userHolder) {
         this.loginService = loginService;
+        this.localStorageProvider = localStorageProvider;
         this.userHolder = userHolder;
-        // Contants
-        this.REMEMBER_ME_CHECK = 'dataRemembered';
-        this.USERNAME = 'username';
-        this.PASSWORD = 'password';
-        if (localStorage.getItem('token') != null) {
-            var username = localStorage.getItem('username');
-            var email = localStorage.getItem('email');
-            var first_name = localStorage.getItem('first_name');
-            var last_name = localStorage.getItem('last_name');
-            var user = new User_1.User(username, email, first_name, last_name);
-            this.userHolder.setCurrentUser(user);
-        }
+        this.userHolder.setCurrentUser(this.localStorageProvider.getUserIfExists());
+        this.loginData = new loginData_1.LoginMeta();
     }
     SignInComponent.prototype.openModal = function () {
         var _this = this;
@@ -49,28 +41,26 @@ var SignInComponent = (function () {
     };
     SignInComponent.prototype.sendLoginRequest = function () {
         var _this = this;
-        this.loginService.createSignInRequest(this.username, this.password)
+        if (!this.checkInputEntered()) {
+            this.showEmptyInputErrorMessage();
+            return;
+        }
+        this.loginService.createSignInRequest(this.loginData.username, this.loginData.password)
             .subscribe(function (user) { return _this.userHolder.setCurrentUser(user); }, function (error) { return console.log(error); }, function () { return _this.authorizationFinished(); });
     };
     SignInComponent.prototype.logoutFinished = function () {
         this.userHolder.clearAuthorizedUser();
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.removeItem('email');
-        localStorage.removeItem('first_name');
-        localStorage.removeItem('last_name');
+        this.localStorageProvider.removeUsersDataFromLocalStorage();
         this.changeButtonText();
     };
     SignInComponent.prototype.authorizationFinished = function () {
-        this.modal.close();
-        localStorage.setItem('token', '8619c86a6189c2710b9862e4488e46ff148f0229');
-        localStorage.setItem('username', this.userHolder.getCurrentUser().username);
-        localStorage.setItem('email', this.userHolder.getCurrentUser().email);
-        localStorage.setItem('first_name', this.userHolder.getCurrentUser().first_name);
-        localStorage.setItem('last_name', this.userHolder.getCurrentUser().last_name);
-        localStorage.setItem(this.PASSWORD, this.password);
-        localStorage.setItem(this.REMEMBER_ME_CHECK, this.rememberedMe);
+        this.localStorageProvider.saveUsersDataToLocalStorage(this.userHolder.getCurrentUser());
+        this.localStorageProvider.saveUsersSignInMetadata(this.loginData.password, this.loginData.remembered);
         this.changeButtonText();
+        this.loginModal.close();
+    };
+    SignInComponent.prototype.checkInputEntered = function () {
+        return this.loginData.username.length > 0 && this.loginData.password.length > 0;
     };
     SignInComponent.prototype.changeButtonText = function () {
         if (!this.userHolder.isUserAuthorized()) {
@@ -82,27 +72,19 @@ var SignInComponent = (function () {
     };
     SignInComponent.prototype.openLoginModalWindow = function () {
         this.initInputData();
-        this.modal.open();
+        this.loginModal.open();
     };
     // Modal window subfunctions
     SignInComponent.prototype.initInputData = function () {
-        this.rememberedMe = localStorage.getItem(this.REMEMBER_ME_CHECK);
-        if (!this.rememberedMe) {
-            // Using two-way binding
-            this.username = null;
-            this.password = null;
-        }
-        else {
-            this.username = localStorage.getItem(this.USERNAME);
-            this.password = localStorage.getItem(this.PASSWORD);
-        }
-    };
-    SignInComponent.prototype.changeRememberField = function (element) {
-        this.rememberedMe = element.checked;
+        this.localStorageProvider.initSignInModalInputData(this.loginData);
     };
     SignInComponent.prototype.openEmailVerifModalWindow = function () {
-        this.modal.close();
+        this.loginModal.close();
         this.emailVerifModal.open();
+    };
+    SignInComponent.prototype.showEmptyInputErrorMessage = function () {
+        this.errorMessage = "Please, fill the inputs";
+        this.showErrorMessage = true;
     };
     __decorate([
         core_1.Input(), 
@@ -111,7 +93,7 @@ var SignInComponent = (function () {
     __decorate([
         core_1.ViewChild('loginModal'), 
         __metadata('design:type', ng2_bs3_modal_1.ModalComponent)
-    ], SignInComponent.prototype, "modal", void 0);
+    ], SignInComponent.prototype, "loginModal", void 0);
     __decorate([
         core_1.ViewChild('restorePasswordModal'), 
         __metadata('design:type', ng2_bs3_modal_1.ModalComponent)
@@ -122,7 +104,7 @@ var SignInComponent = (function () {
             templateUrl: '/app/header/login/sign_in.component.html',
             styleUrls: ['app/header/login/sign_in.css']
         }), 
-        __metadata('design:paramtypes', [loginService_1.LoginProviderService, UserHolderService_1.UserHolderService])
+        __metadata('design:paramtypes', [loginService_1.LoginProviderService, localStorageUpdater_1.LocalStorageProvider, UserHolderService_1.UserHolderService])
     ], SignInComponent);
     return SignInComponent;
 }());
