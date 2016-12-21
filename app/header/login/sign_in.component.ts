@@ -100,6 +100,7 @@ export class SignInComponent {
     // Modal window subfunctions
     initInputData() {
         this.localStorageProvider.initSignInModalInputData(this.loginData);
+        this.showErrorMessage = false;
     }
 
     openEmailVerifModalWindow() {

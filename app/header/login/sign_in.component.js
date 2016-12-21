@@ -77,6 +77,7 @@ var SignInComponent = (function () {
     // Modal window subfunctions
     SignInComponent.prototype.initInputData = function () {
         this.localStorageProvider.initSignInModalInputData(this.loginData);
+        this.showErrorMessage = false;
     };
     SignInComponent.prototype.openEmailVerifModalWindow = function () {
         this.loginModal.close();
