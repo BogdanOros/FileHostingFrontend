@@ -53,16 +53,16 @@ export class FolderPageComponent {
         };
     }
     ngOnInit() {
-        let parsedUserName = this.route.params.value['username'];
-        if (parsedUserName != null) {
-            this.folderProvider.getAll(parsedUserName).
-            subscribe(
-                (data:Folder) => this.onFirstDownload(data),
-                error => console.log(error),
-                () => this.dataLoaded()
-            );
-        }
-        else if (this.userService.isUserAuthorized()) {
+        // let parsedUserName = this.route.params.value['username'];
+        // if (parsedUserName != null) {
+        //     this.folderProvider.getAll(parsedUserName).
+        //     subscribe(
+        //         (data:Folder) => this.onFirstDownload(data),
+        //         error => console.log(error),
+        //         () => this.dataLoaded()
+        //     );
+        // }
+         if (this.userService.isUserAuthorized()) {
             this.folderProvider.getAll(this.userService.getCurrentUser().username).
             subscribe(
                 (data:Folder) => this.onFirstDownload(data),

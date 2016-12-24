@@ -46,12 +46,16 @@ var FolderPageComponent = (function () {
     };
     FolderPageComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var parsedUserName = this.route.params.value['username'];
-        if (parsedUserName != null) {
-            this.folderProvider.getAll(parsedUserName).
-                subscribe(function (data) { return _this.onFirstDownload(data); }, function (error) { return console.log(error); }, function () { return _this.dataLoaded(); });
-        }
-        else if (this.userService.isUserAuthorized()) {
+        // let parsedUserName = this.route.params.value['username'];
+        // if (parsedUserName != null) {
+        //     this.folderProvider.getAll(parsedUserName).
+        //     subscribe(
+        //         (data:Folder) => this.onFirstDownload(data),
+        //         error => console.log(error),
+        //         () => this.dataLoaded()
+        //     );
+        // }
+        if (this.userService.isUserAuthorized()) {
             this.folderProvider.getAll(this.userService.getCurrentUser().username).
                 subscribe(function (data) { return _this.onFirstDownload(data); }, function (error) { return console.log(error); }, function () { return _this.dataLoaded(); });
         }

@@ -27,3 +27,7 @@
 .search-bar {
     width: 400px;
 }
+
+a:hover{
+    text-decoration: none;
+}
