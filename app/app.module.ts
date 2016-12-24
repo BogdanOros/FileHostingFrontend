@@ -41,7 +41,9 @@ export const AppRoutes: Routes = [
     { path: 'contacts', component: ContactsComponent },
     { path: 'contacts/profile/:username', component: ProfileComponent },
     { path: 'profile/:username', component: ProfileComponent },
-    { path: 'folders', component: FolderPageComponent }
+    { path: 'folders', component: FolderPageComponent },
+    { path: 'folders/:username', component: FolderPageComponent },
+    { path: 'profile/lol/folders/:username', redirectTo: '/folders/:username', pathMatch: 'full'}
 ];
 
 @NgModule({

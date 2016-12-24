@@ -3,9 +3,11 @@
         {{ buttonText }}
     </span>
 </div>
-<modal #registerModal>
-    <div class="modal-div">
+<modal #registerModal class="modal-div">
+    <div class="modal-title-container">
         <h3 class="modal-title">Registration</h3>
+    </div>
+    <div class="sign-up-container">
         <div class="form-group">
             <label for="email">Email:</label>
             <input [(ngModel)]="data.email" type="email" class="form-control" id="email">
@@ -26,6 +28,6 @@
             <label for="username">Username:</label>
             <input [(ngModel)]="data.username" type="text" class="form-control" id="username">
         </div>
-        <button (click)="sendRegisterRequest()" class="btn btn-primary">Sign in</button>
+        <button (click)="sendRegisterRequest()" class="btn btn-primary btn-sign-in-modal">Sign up</button>
     </div>
 </modal>

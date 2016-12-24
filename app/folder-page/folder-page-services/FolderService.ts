@@ -21,22 +21,19 @@ export class FoldersLoaderService {
         this.headers.append('Accept', 'application/json');
     }
 
-    public getAll = (): Observable<Folder> => {
+    public getAll (username: string): Observable<Folder>  {
         if (this.userService.isUserAuthorized()) {
             this.headers = new Headers();
             this.headers.append('Content-Type', 'application/json');
             this.headers.append('Accept', 'application/json');
-            this.headers.append('Authorization', 'Token 8619c86a6189c2710b9862e4488e46ff148f0229');
-            // this.headers.append('Authorization', 'Token  4972e5a9c23b3af59a362fdc63d5dc33b2d99084');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
         }
-        let username = this.userService.getCurrentUser().username;
         return this.http.get(this.base_url + '/' + username + '/home', {headers: this.headers})
             .map((response:Response) => <Folder>response.json());
     };
 
-    public getAllInFolder(folder_id: string): Observable<Folder> {
+    public getAllInFolder(username: string, folder_id: string): Observable<Folder> {
         let toAdd = JSON.stringify({folder_id: folder_id});
-        let username = this.userService.getCurrentUser().username;
         return this.http.post(this.base_url + '/' + username + '/home', toAdd, {headers: this.headers})
             .map((response:Response) => <Folder>response.json());
     };

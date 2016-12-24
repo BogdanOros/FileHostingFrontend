@@ -25,7 +25,7 @@ var FileUploadProvider = (function () {
         this.headers = new http_1.Headers();
         this.headers.append('Content-Type', 'multipart/form-data');
         if (this.userService.isUserAuthorized()) {
-            this.headers.append('Authorization', 'Token 8619c86a6189c2710b9862e4488e46ff148f0229');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
         }
     }
     FileUploadProvider.prototype.downloadFileRequest = function (file_id) {
@@ -50,7 +50,7 @@ var FileUploadProvider = (function () {
                 }
             };
             xhr.open('POST', _this.base_url + '/upload_file', true);
-            xhr.setRequestHeader("Authorization", 'Token  8619c86a6189c2710b9862e4488e46ff148f0229');
+            xhr.setRequestHeader("Authorization", 'Token ' + _this.userService.getCurrentUser().token);
             xhr.send(formData);
         });
     };

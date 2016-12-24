@@ -57,4 +57,8 @@ export class ProfileComponent {
         this.user.requests.splice(this.user.requests.indexOf(request, 0), 1);
     }
 
+    openUsersFolders(friend) {
+        
+    }
+
 }

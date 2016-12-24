@@ -33,7 +33,9 @@ export class SignUpComponent {
     }
 
     sendRegisterRequest() {
-        this.registerProvider.createSignUpRequest(this.data).subscribe((user: User) => console.log(user));
+        this.registerProvider.createSignUpRequest(this.data).subscribe(
+            (user: User) => console.log(user)
+        );
         this.modal.close();
     }
 

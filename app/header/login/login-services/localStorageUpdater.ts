@@ -16,7 +16,7 @@ export class LocalStorageProvider {
     public static LAST_NAME: string = "last_name";
 
     public static FIELDS_REMEMBERED: string = "fields_remembered";
-
+    public static LOGIN: string = "login";
     public static EMPTY: string = "";
 
     // Restore user functions
@@ -28,11 +28,12 @@ export class LocalStorageProvider {
     }
 
     private restoreSavedUserFromStorage(): User {
+        let token = this.getFieldPropertyFromStorage(LocalStorageProvider.TOKEN);
         let username = this.getFieldPropertyFromStorage(LocalStorageProvider.USERNAME);
         let email = this.getFieldPropertyFromStorage(LocalStorageProvider.EMAIL);
         let lastName = this.getFieldPropertyFromStorage(LocalStorageProvider.LAST_NAME);
         let firstName = this.getFieldPropertyFromStorage(LocalStorageProvider.FIRST_NAME);
-        return new User(username, email, firstName, lastName);
+        return new User(token, username, email, firstName, lastName);
     }
 
     private usersTokenSaved(): boolean {
@@ -59,15 +60,17 @@ export class LocalStorageProvider {
         this.setFieldPropertyToStorage(LocalStorageProvider.FIRST_NAME, user.first_name);
     }
 
-    public saveUsersSignInMetadata(password:string, fieldsRemembered: boolean): void {
+    public saveUsersSignInMetadata(username: string, password:string, fieldsRemembered: boolean): void {
+        this.setFieldPropertyToStorage(LocalStorageProvider.LOGIN, username);
         this.setFieldPropertyToStorage(LocalStorageProvider.PASSWORD, password);
         let fieldsRememberedConvert: string = String(fieldsRemembered);
         this.setFieldPropertyToStorage(LocalStorageProvider.FIELDS_REMEMBERED, fieldsRememberedConvert);
     }
 
     public initSignInModalInputData(loginData: LoginMeta) {
-        loginData.remembered = !!this.getFieldPropertyFromStorage(LocalStorageProvider.FIELDS_REMEMBERED);
-        loginData.username = loginData.remembered ? this.getFieldPropertyFromStorage(LocalStorageProvider.USERNAME)
+        let dataRememberedString = this.getFieldPropertyFromStorage(LocalStorageProvider.FIELDS_REMEMBERED);
+        loginData.remembered = this.loginDataRemembered(dataRememberedString);
+        loginData.username = loginData.remembered ? this.getFieldPropertyFromStorage(LocalStorageProvider.LOGIN)
             : LocalStorageProvider.EMPTY;
         loginData.password = loginData.remembered ? this.getFieldPropertyFromStorage(LocalStorageProvider.PASSWORD)
             : LocalStorageProvider.EMPTY;
@@ -84,6 +87,10 @@ export class LocalStorageProvider {
 
     private removeFieldPropertyFromStorage(property: string): void {
         localStorage.removeItem(property);
+    }
+
+    private loginDataRemembered(remembered) {
+        return remembered == "true";
     }
 
 }

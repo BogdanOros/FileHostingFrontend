@@ -28,10 +28,20 @@ export class LoginProviderService {
     }
 
     public createLogoutRequest(): Observable<string> {
-        // this.headers.append('Authorization', 'Token 8619c86a6189c2710b9862e4488e46ff148f0229');
         return this.http.get(this.base_url + "/logout", {headers: this.headers})
-            .map((response:Response) => response.json())
+            .map((response:Response) => <string>response.json())
     }
 
+    public createEmailPasswordRestoreRequest(email: string): Observable<string> {
+        let toAdd = JSON.stringify({email: email});
+        return this.http.post(this.base_url + "/forgot_password", toAdd)
+            .map((response: Response) => <string>response.json());
+    }
+
+    public createResetPasswordRequest(password: string, code: string): Observable<string> {
+        let toAdd = JSON.stringify({password: password, code: code});
+        return this.http.post(this.base_url + "/reset_password", toAdd)
+            .map((response: Response) => <string>response.json());
+    }
 
 }

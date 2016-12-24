@@ -39,7 +39,21 @@
                     Decline
                 </div>
             </div>
-
+        </div>
+    </div>
+</div>
+s
+<div *ngIf="isLoaded" class="requests-holder container">
+    <div *ngFor="let friend of user.friends">
+        <img class="contact-image" src="/app/contacts/resources/simple.png"
+        >
+        <p>{{friend.username}}</p>
+        <div class="btn btn-primary btn-control" (click)="openUsersFolders(friend)">
+            <a [routerLink] = '["folders", friend.username]'>
+                <div>
+                    {{friend.username}}`s profile
+                </div>
+            </a>
         </div>
     </div>
 </div>

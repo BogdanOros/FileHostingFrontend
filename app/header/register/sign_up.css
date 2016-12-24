@@ -1,4 +1,5 @@
 .sign-up-format {
+    font-family: "Trebuchet MS";
     color: #fffb2f;
     font-weight: 500;
     font-size: 20px;
@@ -17,11 +18,37 @@
 }
 
 .modal-div {
-    width: 400px;
-    height: 600px;
-    margin-left: 20px;
+    font-family: "Trebuchet MS";
+    position: absolute;
+    margin: auto;
+    width: 600px;
+    height: 690px;
+    outline: none;
 }
 
 .modal-title {
+    color: #fffb2f;
+    font-weight: 600;
+    font-size: 32px;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.3);
     text-align: center;
+}
+
+.modal-title-container {
+    width: 100%;
+    height: 56px;
+    line-height: 56px;
+    background-color: #767676;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,.2);
+}
+
+.sign-up-container {
+    padding: 20px;
+}
+
+.btn-sign-in-modal, .btn-sign-in-modal:active {
+    background-color: #767676;
+    border-color: #767676;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.3);
+    color: #fffb2f;
 }

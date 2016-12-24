@@ -21,8 +21,7 @@ export class FileUploadProvider {
         this.headers = new Headers();
         this.headers.append('Content-Type', 'multipart/form-data');
         if (this.userService.isUserAuthorized()) {
-            this.headers.append('Authorization', 'Token 8619c86a6189c2710b9862e4488e46ff148f0229');
-            // this.headers.append('Authorization', 'Token  4972e5a9c23b3af59a362fdc63d5dc33b2d99084');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
         }
     }
 
@@ -53,7 +52,7 @@ export class FileUploadProvider {
             };
 
             xhr.open('POST', this.base_url + '/upload_file', true);
-            xhr.setRequestHeader("Authorization", 'Token  8619c86a6189c2710b9862e4488e46ff148f0229');
+            xhr.setRequestHeader("Authorization", 'Token ' + this.userService.getCurrentUser().token);
             xhr.send(formData);
         });
     }

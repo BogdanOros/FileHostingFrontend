@@ -25,8 +25,11 @@ export class SignInComponent {
     @ViewChild('loginModal')
     loginModal: ModalComponent;
 
-    @ViewChild('restorePasswordModal')
+    @ViewChild('sendEmailModal')
     emailVerifModal: ModalComponent;
+
+    @ViewChild('restorePasswordModal')
+    restorePasswordModal: ModalComponent;
 
     loginData: LoginMeta;
     restoreEmail: string;
@@ -63,8 +66,13 @@ export class SignInComponent {
         }
         this.loginService.createSignInRequest(this.loginData.username, this.loginData.password)
            .subscribe((user: User) => this.userHolder.setCurrentUser(user),
-               error => console.log(error),
+               error => this.incorrectPasswordError(),
                () => this.authorizationFinished())
+    }
+
+    incorrectPasswordError() {
+        this.errorMessage = "Incorrect password or login";
+        this.showErrorMessage = true;
     }
 
     logoutFinished() {
@@ -75,7 +83,7 @@ export class SignInComponent {
 
     authorizationFinished() {
         this.localStorageProvider.saveUsersDataToLocalStorage(this.userHolder.getCurrentUser());
-        this.localStorageProvider.saveUsersSignInMetadata(this.loginData.password, this.loginData.remembered);
+        this.localStorageProvider.saveUsersSignInMetadata(this.loginData.username, this.loginData.password, this.loginData.remembered);
         this.changeButtonText();
         this.loginModal.close();
     }
@@ -111,6 +119,45 @@ export class SignInComponent {
     showEmptyInputErrorMessage() {
         this.errorMessage = "Please, fill the inputs";
         this.showErrorMessage = true;
+    }
+
+    sendPasswordRestoreRequest() {
+        if (this.restoreEmail.length > 0) {
+            this.loginService.createEmailPasswordRestoreRequest(this.restoreEmail)
+                .subscribe(
+                    (data: string) => console.log(data),
+                    error => console.log(error),
+                    () => this.openRestorePasswordModal()
+                );
+        }
+    }
+
+    openRestorePasswordModal() {
+        this.restorePasswordModal.open();
+        this.emailVerifModal.close();
+    }
+
+    restorePassword(code, newPassword, repeatPassword) {
+        if (newPassword == repeatPassword) {
+            this.loginService.createResetPasswordRequest(newPassword, code)
+                .subscribe(
+                    (data: string) => this.restorePasswordErrorMessage(data),
+                    error => console.log(error),
+                    () => this.returnToSignInModal()
+                );
+        }
+    }
+
+    restorePasswordErrorMessage(message: string) {
+        if (message == "Invalid code") {
+            this.errorMessage = message;
+            this.showErrorMessage = true;
+        }
+    }
+
+    returnToSignInModal() {
+        this.restorePasswordModal.close();
+        this.openLoginModalWindow();
     }
 
 }

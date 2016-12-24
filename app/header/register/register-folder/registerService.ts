@@ -23,7 +23,6 @@ export class RegisterProviderService {
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
-        // this.headers.append('Authorization', 'Token 8619c86a6189c2710b9862e4488e46ff148f0229');
     }
 
     public createSignUpRequest(data: RegisterMetadata): Observable<User> {

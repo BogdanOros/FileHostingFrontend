@@ -35,7 +35,7 @@
         </div>
 </modal>
 
-<modal #restorePasswordModal class="modal-div">
+<modal #sendEmailModal class="modal-div">
     <div class="modal-title-container">
         <h3 class="modal-title">Password restoring</h3>
     </div>
@@ -45,12 +45,48 @@
                 Please, enter your email account to send password restore code
             </p>
             <input [(ngModel)]="restoreEmail"
-                   type="email" class="form-control sign-in-input" id="restore-pass"
+                   type="email" class="form-control sign-in-input" id="restore-pass" value=""
                    placeholder="Email"
             >
         </div>
-        <button class="btn btn-primary btn-sign-in-modal">
+        <button class="btn btn-primary btn-sign-in-modal" (click) = "sendPasswordRestoreRequest()">
             Next
+        </button>
+    </div>
+</modal>
+
+<modal #restorePasswordModal class="modal-div">
+    <div class="modal-title-container">
+        <h3 class="modal-title">Password restoring</h3>
+    </div>
+    <div class="sign-in-container">
+        <div class="form-group">
+            <p>
+                Enter the code from email
+            </p>
+            <input #restoreCode
+                   type="text" class="form-control sign-in-input" id="pass-code"
+                   placeholder="Code"
+            >
+        </div>
+        <div class="form-group">
+            <input #newPassword
+                   type="password" class="form-control sign-in-input" id="new-password"
+                   placeholder="New password"
+            >
+        </div>
+
+        <div class="form-group">
+            <input #repeatPassword
+                   type="password" class="form-control sign-in-input" id="repeat-password"
+                   placeholder="Repeat password"
+            >
+        </div>
+        <div *ngIf="showErrorMessage" id="restore-error-message-span">
+            <span>{{errorMessage}}</span>
+        </div>
+        <button class="btn btn-primary btn-sign-in-modal" (click) = "restorePassword(restoreCode.value, newPassword.value, repeatPassword.value)">
+            Restore
         </button>
     </div>
 </modal>

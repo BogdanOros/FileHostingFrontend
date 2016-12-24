@@ -28,8 +28,17 @@ var LoginProviderService = (function () {
             .map(function (response) { return response.json(); });
     };
     LoginProviderService.prototype.createLogoutRequest = function () {
-        // this.headers.append('Authorization', 'Token 8619c86a6189c2710b9862e4488e46ff148f0229');
         return this.http.get(this.base_url + "/logout", { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
+    LoginProviderService.prototype.createEmailPasswordRestoreRequest = function (email) {
+        var toAdd = JSON.stringify({ email: email });
+        return this.http.post(this.base_url + "/forgot_password", toAdd)
+            .map(function (response) { return response.json(); });
+    };
+    LoginProviderService.prototype.createResetPasswordRequest = function (password, code) {
+        var toAdd = JSON.stringify({ password: password, code: code });
+        return this.http.post(this.base_url + "/reset_password", toAdd)
             .map(function (response) { return response.json(); });
     };
     LoginProviderService = __decorate([

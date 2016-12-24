@@ -24,7 +24,6 @@ var RegisterProviderService = (function () {
         this.headers = new http_1.Headers();
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
-        // this.headers.append('Authorization', 'Token 8619c86a6189c2710b9862e4488e46ff148f0229');
     }
     RegisterProviderService.prototype.createSignUpRequest = function (data) {
         var data1 = JSON.stringify({ email: data.email, password: data.password, first_name: data.firstname, last_name: data.secondname, username: data.username });

@@ -17,28 +17,26 @@ var UserHolderService_1 = require('../../user/UserHolderService');
 require('rxjs/add/operator/map');
 var FoldersLoaderService = (function () {
     function FoldersLoaderService(http, userService) {
-        var _this = this;
         this.http = http;
         this.userService = userService;
         this.base_url = "http://192.168.2.117:8000";
-        this.getAll = function () {
-            if (_this.userService.isUserAuthorized()) {
-                _this.headers = new http_1.Headers();
-                _this.headers.append('Content-Type', 'application/json');
-                _this.headers.append('Accept', 'application/json');
-                _this.headers.append('Authorization', 'Token 8619c86a6189c2710b9862e4488e46ff148f0229');
-            }
-            var username = _this.userService.getCurrentUser().username;
-            return _this.http.get(_this.base_url + '/' + username + '/home', { headers: _this.headers })
-                .map(function (response) { return response.json(); });
-        };
         this.headers = new http_1.Headers();
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
     }
-    FoldersLoaderService.prototype.getAllInFolder = function (folder_id) {
+    FoldersLoaderService.prototype.getAll = function (username) {
+        if (this.userService.isUserAuthorized()) {
+            this.headers = new http_1.Headers();
+            this.headers.append('Content-Type', 'application/json');
+            this.headers.append('Accept', 'application/json');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
+        }
+        return this.http.get(this.base_url + '/' + username + '/home', { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
+    ;
+    FoldersLoaderService.prototype.getAllInFolder = function (username, folder_id) {
         var toAdd = JSON.stringify({ folder_id: folder_id });
-        var username = this.userService.getCurrentUser().username;
         return this.http.post(this.base_url + '/' + username + '/home', toAdd, { headers: this.headers })
             .map(function (response) { return response.json(); });
     };

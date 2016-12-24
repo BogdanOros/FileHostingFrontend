@@ -12,6 +12,8 @@ import {FoldersLoaderService} from './folder-page-services/FolderService'
 import { ActiveFolderHolder } from './folder-page-services/ActiveFolderHolder'
 import { FileUploadProvider } from './../control-panel/FileUploader'
 
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
     selector: 'folder-page',
     templateUrl: '/app/folder-page/folder-page.component.html',
@@ -30,6 +32,7 @@ export class FolderPageComponent {
                 private fileUploader: FileUploadProvider,
                 private fileHelperService: FileHelperService,
                 private userService: UserHolderService,
+                private route: ActivatedRoute,
                 private folderHolder: ActiveFolderHolder) {
         this.isLoaded = false;
     }
@@ -50,8 +53,17 @@ export class FolderPageComponent {
         };
     }
     ngOnInit() {
-        if (this.userService.isUserAuthorized()) {
-            this.folderProvider.getAll().
+        let parsedUserName = this.route.params.value['username'];
+        if (parsedUserName != null) {
+            this.folderProvider.getAll(parsedUserName).
+            subscribe(
+                (data:Folder) => this.onFirstDownload(data),
+                error => console.log(error),
+                () => this.dataLoaded()
+            );
+        }
+        else if (this.userService.isUserAuthorized()) {
+            this.folderProvider.getAll(this.userService.getCurrentUser().username).
             subscribe(
                 (data:Folder) => this.onFirstDownload(data),
                 error => console.log(error),
@@ -128,7 +140,7 @@ export class FolderPageComponent {
         } else {
             id = folder._id.$oid;
         }
-        this.folderProvider.getAllInFolder(id).
+        this.folderProvider.getAllInFolder(this.userService.getCurrentUser().username, id).
         subscribe((data:Folder) => this.folder = data,
             error => console.log(error),
             () => this.dataLoaded());

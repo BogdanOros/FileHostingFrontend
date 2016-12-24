@@ -44,7 +44,9 @@ exports.AppRoutes = [
     { path: 'contacts', component: contacts_component_1.ContactsComponent },
     { path: 'contacts/profile/:username', component: profile_component_1.ProfileComponent },
     { path: 'profile/:username', component: profile_component_1.ProfileComponent },
-    { path: 'folders', component: folder_page_component_1.FolderPageComponent }
+    { path: 'folders', component: folder_page_component_1.FolderPageComponent },
+    { path: 'folders/:username', component: folder_page_component_1.FolderPageComponent },
+    { path: 'profile/lol/folders/:username', redirectTo: '/folders/:username', pathMatch: 'full' }
 ];
 var AppModule = (function () {
     function AppModule() {

@@ -51,6 +51,8 @@ var ProfileComponent = (function () {
     ProfileComponent.prototype.removeFromRequest = function (request) {
         this.user.requests.splice(this.user.requests.indexOf(request, 0), 1);
     };
+    ProfileComponent.prototype.openUsersFolders = function (friend) {
+    };
     ProfileComponent = __decorate([
         core_1.Component({
             selector: 'profile',

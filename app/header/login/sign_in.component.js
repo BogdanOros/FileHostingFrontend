@@ -46,7 +46,11 @@ var SignInComponent = (function () {
             return;
         }
         this.loginService.createSignInRequest(this.loginData.username, this.loginData.password)
-            .subscribe(function (user) { return _this.userHolder.setCurrentUser(user); }, function (error) { return console.log(error); }, function () { return _this.authorizationFinished(); });
+            .subscribe(function (user) { return _this.userHolder.setCurrentUser(user); }, function (error) { return _this.incorrectPasswordError(); }, function () { return _this.authorizationFinished(); });
+    };
+    SignInComponent.prototype.incorrectPasswordError = function () {
+        this.errorMessage = "Incorrect password or login";
+        this.showErrorMessage = true;
     };
     SignInComponent.prototype.logoutFinished = function () {
         this.userHolder.clearAuthorizedUser();
@@ -55,7 +59,7 @@ var SignInComponent = (function () {
     };
     SignInComponent.prototype.authorizationFinished = function () {
         this.localStorageProvider.saveUsersDataToLocalStorage(this.userHolder.getCurrentUser());
-        this.localStorageProvider.saveUsersSignInMetadata(this.loginData.password, this.loginData.remembered);
+        this.localStorageProvider.saveUsersSignInMetadata(this.loginData.username, this.loginData.password, this.loginData.remembered);
         this.changeButtonText();
         this.loginModal.close();
     };
@@ -87,6 +91,34 @@ var SignInComponent = (function () {
         this.errorMessage = "Please, fill the inputs";
         this.showErrorMessage = true;
     };
+    SignInComponent.prototype.sendPasswordRestoreRequest = function () {
+        var _this = this;
+        if (this.restoreEmail.length > 0) {
+            this.loginService.createEmailPasswordRestoreRequest(this.restoreEmail)
+                .subscribe(function (data) { return console.log(data); }, function (error) { return console.log(error); }, function () { return _this.openRestorePasswordModal(); });
+        }
+    };
+    SignInComponent.prototype.openRestorePasswordModal = function () {
+        this.restorePasswordModal.open();
+        this.emailVerifModal.close();
+    };
+    SignInComponent.prototype.restorePassword = function (code, newPassword, repeatPassword) {
+        var _this = this;
+        if (newPassword == repeatPassword) {
+            this.loginService.createResetPasswordRequest(newPassword, code)
+                .subscribe(function (data) { return _this.restorePasswordErrorMessage(data); }, function (error) { return console.log(error); }, function () { return _this.returnToSignInModal(); });
+        }
+    };
+    SignInComponent.prototype.restorePasswordErrorMessage = function (message) {
+        if (message == "Invalid code") {
+            this.errorMessage = message;
+            this.showErrorMessage = true;
+        }
+    };
+    SignInComponent.prototype.returnToSignInModal = function () {
+        this.restorePasswordModal.close();
+        this.openLoginModalWindow();
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
@@ -96,9 +128,13 @@ var SignInComponent = (function () {
         __metadata('design:type', ng2_bs3_modal_1.ModalComponent)
     ], SignInComponent.prototype, "loginModal", void 0);
     __decorate([
-        core_1.ViewChild('restorePasswordModal'), 
+        core_1.ViewChild('sendEmailModal'), 
         __metadata('design:type', ng2_bs3_modal_1.ModalComponent)
     ], SignInComponent.prototype, "emailVerifModal", void 0);
+    __decorate([
+        core_1.ViewChild('restorePasswordModal'), 
+        __metadata('design:type', ng2_bs3_modal_1.ModalComponent)
+    ], SignInComponent.prototype, "restorePasswordModal", void 0);
     SignInComponent = __decorate([
         core_1.Component({
             selector: 'sign-in',
