@@ -53,7 +53,7 @@ export class FolderPageComponent {
         };
     }
     ngOnInit() {
-        let parsedUserName = this.route.params.value['username'];
+        /*let parsedUserName = this.route.params.value['username'];
         if (parsedUserName != null) {
             this.folderProvider.getAll(parsedUserName).
             subscribe(
@@ -62,7 +62,7 @@ export class FolderPageComponent {
                 () => this.dataLoaded()
             );
         }
-        else if (this.userService.isUserAuthorized()) {
+        else */if (this.userService.isUserAuthorized()) {
             this.folderProvider.getAll(this.userService.getCurrentUser().username).
             subscribe(
                 (data:Folder) => this.onFirstDownload(data),
