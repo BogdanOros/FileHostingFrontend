@@ -26,6 +26,11 @@ export class FileUploadProvider {
     }
 
     downloadFileRequest(file_id): Observable<any> {
+        if (this.userService.isUserAuthorized()) {
+            this.headers = new Headers();
+            this.headers.append('Content-Type', 'multipart/form-data');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
+        }
         let toAdd = JSON.stringify({file_id: file_id});
         return this.http.post(this.base_url + '/download_file', toAdd, {headers: this.headers})
             .map((response:Response) => response)

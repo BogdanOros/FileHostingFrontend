@@ -17,19 +17,6 @@ var MenuComponent = (function () {
     function MenuComponent(userHolder) {
         this.userHolder = userHolder;
     }
-    MenuComponent.prototype.ngOnInit = function () {
-        this.dataLoaded = false;
-    };
-    MenuComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        setTimeout(function (_) { return _this.setupUser(); });
-    };
-    MenuComponent.prototype.setupUser = function () {
-        this.loggedUser = this.userHolder.getCurrentUser();
-        if (this.loggedUser != null) {
-            this.dataLoaded = true;
-        }
-    };
     MenuComponent = __decorate([
         core_1.Component({
             selector: 'menu-list',

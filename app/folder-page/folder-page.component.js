@@ -46,7 +46,15 @@ var FolderPageComponent = (function () {
     };
     FolderPageComponent.prototype.ngOnInit = function () {
         var _this = this;
-        if (this.userService.isUserAuthorized()) {
+        var parsedUserName;
+        this.route.params
+            .map(function (param) { return (param['username']); })
+            .subscribe(function (username) { return parsedUserName = username; });
+        if (parsedUserName != null) {
+            this.folderProvider.getAll(parsedUserName).
+                subscribe(function (data) { return _this.onFirstDownload(data); }, function (error) { return console.log(error); }, function () { return _this.dataLoaded(); });
+        }
+        else if (this.userService.isUserAuthorized()) {
             this.folderProvider.getAll(this.userService.getCurrentUser().username).
                 subscribe(function (data) { return _this.onFirstDownload(data); }, function (error) { return console.log(error); }, function () { return _this.dataLoaded(); });
         }
@@ -63,10 +71,12 @@ var FolderPageComponent = (function () {
         if (this.folder.is_main) {
             this.folderHolder.saveMainFolder(this.folder);
         }
+        this.folderHolder.saveActiveObject(null);
         this.folderHolder.saveActiveFolder(this.folder);
         this.subfolders = this.folder.subfolders;
         this.files = this.folder.files;
         this.isLoaded = true;
+        this.userService.setDataLoaded(true);
     };
     FolderPageComponent.prototype.appendFolder = function (folder) {
         var _this = this;
@@ -140,10 +150,14 @@ var FolderPageComponent = (function () {
         var contentType = this.fileHelperService.getContentType(file.type);
         var blobed = this.base64toBlob(blob._body.substring(1, blob._body.length - 1), contentType);
         var blobUrl = URL.createObjectURL(blobed);
-        console.log(blobUrl);
         var filename = this.fileHelperService.getCorrectFileName(file);
         this.download(blobed, filename, contentType);
         // window.location = blobUrl;
+    };
+    FolderPageComponent.prototype.showFile = function (file) {
+        var _this = this;
+        this.fileUploader.downloadFileRequest(file._id.$oid)
+            .subscribe(function (data) { return _this.createFileFromBlob(data, file); });
     };
     FolderPageComponent.prototype.base64toBlob = function (base64Data, contentType) {
         contentType = contentType || '';

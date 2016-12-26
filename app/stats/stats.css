@@ -1,0 +1,19 @@
+.stats-holder {
+    margin-left: 240px;
+    margin-top: 20px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    border: 1px solid darkgrey;
+    width: 81%;
+}
+
+.inner-stats-holder {
+    padding: 20px;
+}
+
+.btn-in-modal, .btn-in-modal:active {
+    background-color: #767676;
+    border-color: #767676;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.3);
+    color: #fffb2f;
+}

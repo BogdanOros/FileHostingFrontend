@@ -4,6 +4,7 @@
 import { Injectable } from '@angular/core'
 import { User } from './../../../user/User'
 import { LoginMeta } from './loginData'
+import { UserHolderService } from "../../../user/UserHolderService";
 
 @Injectable()
 export class LocalStorageProvider {
@@ -20,6 +21,10 @@ export class LocalStorageProvider {
     public static EMPTY: string = "";
 
     // Restore user functions
+
+    constructor(private userHolder: UserHolderService) {
+        this.userHolder.setCurrentUser(this.getUserIfExists());
+    }
 
     public getUserIfExists(): User {
         if (this.usersTokenSaved()) {

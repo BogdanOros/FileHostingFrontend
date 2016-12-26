@@ -26,6 +26,7 @@ var sign_up_component_1 = require("./header/register/sign_up.component");
 var menu_component_1 = require("./menu/menu.component");
 var control_panel_component_1 = require("./control-panel/control-panel.component");
 var profile_component_1 = require("./profile/profile.component");
+var stats_component_1 = require('./stats/stats.component');
 var contacts_component_1 = require("./contacts/contacts.component");
 var FolderMock_1 = require("./folder-page/folder-page-services/FolderMock");
 var FolderService_1 = require("./folder-page/folder-page-services/FolderService");
@@ -44,9 +45,11 @@ exports.AppRoutes = [
     { path: 'contacts', component: contacts_component_1.ContactsComponent },
     { path: 'contacts/profile/:username', component: profile_component_1.ProfileComponent },
     { path: 'profile/:username', component: profile_component_1.ProfileComponent },
+    { path: 'stats', component: stats_component_1.StatsComponent },
     { path: 'folders', component: folder_page_component_1.FolderPageComponent },
+    { path: 'folders/restart', redirectTo: '/folders', pathMatch: 'full' },
     { path: 'folders/:username', component: folder_page_component_1.FolderPageComponent },
-    { path: 'profile/lol/folders/:username', redirectTo: '/folders/:username', pathMatch: 'full' }
+    { path: 'profile/:current/folders/:username', redirectTo: '/folders/:username', pathMatch: 'full' }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -69,6 +72,7 @@ var AppModule = (function () {
                 control_panel_component_1.ControlPanelComponent,
                 profile_component_1.ProfileComponent,
                 contacts_component_1.ContactsComponent,
+                stats_component_1.StatsComponent,
                 menu_component_1.MenuComponent
             ],
             providers: [

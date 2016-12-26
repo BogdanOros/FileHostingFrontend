@@ -11,6 +11,12 @@ export class UserHolderService {
 
     lastQueryUsers: User[];
 
+    dataLoaded: boolean;
+
+    constructor() {
+       this.dataLoaded = this.isUserAuthorized();
+    }
+
     saveLastQueryUsers(users: User[]) {
         this.lastQueryUsers = users;
     }
@@ -34,6 +40,12 @@ export class UserHolderService {
     clearAuthorizedUser() {
         this.currentUser = null;
     }
-    
+
+    setDataLoaded(loaded) {
+        this.dataLoaded = loaded;
+    }
+    getDataLoaded(loaded) {
+        return this.dataLoaded;
+    }
 
 }

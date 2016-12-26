@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div *ngIf="dataLoaded && userHolder.isUserAuthorized()" class="stats-holder container">
+    <div class="inner-stats-holder">
+        <h3>Statistics</h3>
+        <div class="form-group">
+            <label for="day_act">Day activity: </label>
+            <span id="day_act">{{stats.day_activity}}</span>
+        </div>
+        <div class="form-group">
+            <label for="week_act">Week activity: </label>
+            <span id="week_act">{{stats.week_activity}}</span>
+        </div>
+        <div class="form-group">
+            <label for="month_act">Month activity: </label>
+            <span id="month_act">{{stats.month_activity}}</span>
+        </div>
+        <div class="form-group">
+            <label for="cache_usage">Cache usage: </label>
+            <span id="cache_usage">{{stats.cache_queries}}</span>
+        </div>
+        <div *ngIf="userHolder.getCurrentUser().is_superuser" class="form-group">
+            <input class="btn btn-primary btn-in-modal" value="Restore database" (click)="restoreDatabase()"/>
+        </div>
+    </div>
+</div>

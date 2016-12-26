@@ -29,6 +29,11 @@ var FileUploadProvider = (function () {
         }
     }
     FileUploadProvider.prototype.downloadFileRequest = function (file_id) {
+        if (this.userService.isUserAuthorized()) {
+            this.headers = new http_1.Headers();
+            this.headers.append('Content-Type', 'multipart/form-data');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
+        }
         var toAdd = JSON.stringify({ file_id: file_id });
         return this.http.post(this.base_url + '/download_file', toAdd, { headers: this.headers })
             .map(function (response) { return response; });

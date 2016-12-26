@@ -59,6 +59,7 @@ export class ContactsComponent {
     }
 
     requestIsSent(user) {
+        user.is_friend = 2;
         user.imageUrl = '/app/contacts/resources/requested.png';
         user.currentImageUrl = user.imageUrl;
     }

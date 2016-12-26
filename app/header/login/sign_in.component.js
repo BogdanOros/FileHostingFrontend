@@ -17,11 +17,13 @@ var ng2_bs3_modal_1 = require('ng2-bs3-modal/ng2-bs3-modal');
 var loginService_1 = require('./login-services/loginService');
 var UserHolderService_1 = require('../../user/UserHolderService');
 var localStorageUpdater_1 = require('./login-services/localStorageUpdater');
+var router_1 = require('@angular/router');
 var loginData_1 = require('./login-services/loginData');
 var SignInComponent = (function () {
-    function SignInComponent(loginService, localStorageProvider, userHolder) {
+    function SignInComponent(loginService, localStorageProvider, router, userHolder) {
         this.loginService = loginService;
         this.localStorageProvider = localStorageProvider;
+        this.router = router;
         this.userHolder = userHolder;
         this.userHolder.setCurrentUser(this.localStorageProvider.getUserIfExists());
         this.loginData = new loginData_1.LoginMeta();
@@ -56,12 +58,15 @@ var SignInComponent = (function () {
         this.userHolder.clearAuthorizedUser();
         this.localStorageProvider.removeUsersDataFromLocalStorage();
         this.changeButtonText();
+        this.userHolder.setDataLoaded(false);
     };
     SignInComponent.prototype.authorizationFinished = function () {
         this.localStorageProvider.saveUsersDataToLocalStorage(this.userHolder.getCurrentUser());
         this.localStorageProvider.saveUsersSignInMetadata(this.loginData.username, this.loginData.password, this.loginData.remembered);
         this.changeButtonText();
         this.loginModal.close();
+        this.userHolder.setDataLoaded(true);
+        this.router.navigate(['/profile', this.userHolder.getCurrentUser().username]);
     };
     SignInComponent.prototype.checkInputEntered = function () {
         return this.loginData.username.length > 0 && this.loginData.password.length > 0;
@@ -141,7 +146,7 @@ var SignInComponent = (function () {
             templateUrl: '/app/header/login/sign_in.component.html',
             styleUrls: ['app/header/login/sign_in.css']
         }), 
-        __metadata('design:paramtypes', [loginService_1.LoginProviderService, localStorageUpdater_1.LocalStorageProvider, UserHolderService_1.UserHolderService])
+        __metadata('design:paramtypes', [loginService_1.LoginProviderService, localStorageUpdater_1.LocalStorageProvider, router_1.Router, UserHolderService_1.UserHolderService])
     ], SignInComponent);
     return SignInComponent;
 }());

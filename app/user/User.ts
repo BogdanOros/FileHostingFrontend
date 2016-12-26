@@ -11,6 +11,7 @@ export class User {
     is_friend: number;
     requests: any;
     friends: User[];
+    is_superuser: boolean;
     imageUrl: string;
     currentImageUrl: string;
 

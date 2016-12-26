@@ -12,24 +12,5 @@ import { User } from '../user/User';
     styleUrls: ['app/menu/menu.css']
 })
 export class MenuComponent {
-    loggedUser: User;
-    dataLoaded: boolean;
     constructor(private userHolder: UserHolderService) {}
-
-    ngOnInit() {
-        this.dataLoaded = false;
-    }
-
-    ngAfterViewInit() {
-        setTimeout( _ => this.setupUser() );
-    }
-
-    setupUser() {
-        this.loggedUser = this.userHolder.getCurrentUser();
-        if (this.loggedUser != null) {
-            this.dataLoaded = true;
-        }
-    }
-
-
 }

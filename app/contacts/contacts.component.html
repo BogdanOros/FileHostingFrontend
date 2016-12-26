@@ -1,24 +1,26 @@
-<div class="input-group contacts-holder">
-    <input #userSearch type="text" class="form-control search-bar">
-    <input type="button" value="Search" class="btn btn-primary btn-control" (click)="searchForUser(userSearch.value)">
-</div>
+<div *ngIf="userHolder.isUserAuthorized()">
+    <div class="input-group contacts-holder">
+        <input #userSearch type="text" class="form-control search-bar">
+        <input type="button" value="Search" class="btn btn-primary btn-control" (click)="searchForUser(userSearch.value)">
+    </div>
 
-<div class="contacts-holder">
-    <h3 class="header">Users: </h3>
-    <div class="user-profile" *ngFor="let user of users">
-        <div>
-            <img class="contact-image" [src]="user.currentImageUrl"
-                 (mouseenter)="mouseEnteredUser(user)"
-                 (mouseleave)="mouseLeftUser(user)"
-                 (click)="sendFriendshipRequest(user)"
-            >
-            <p>{{user.username}}</p>
-            <div class="btn btn-primary btn-control">
-                <a [routerLink] = '["profile", user.username]'>
-                    <div>
-                        {{user.username}}`s profile
-                    </div>
-                </a>
+    <div class="contacts-holder">
+        <h3 class="header">Users: </h3>
+        <div class="user-profile" *ngFor="let user of users">
+            <div>
+                <img class="contact-image" [src]="user.currentImageUrl"
+                     (mouseenter)="mouseEnteredUser(user)"
+                     (mouseleave)="mouseLeftUser(user)"
+                     (click)="sendFriendshipRequest(user)"
+                >
+                <p>{{user.username}}</p>
+                <div class="btn btn-primary btn-control">
+                    <a [routerLink] = '["profile", user.username]'>
+                        <div>
+                            {{user.username}}`s profile
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

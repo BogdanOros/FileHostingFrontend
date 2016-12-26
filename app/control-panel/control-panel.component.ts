@@ -7,6 +7,10 @@ import { EventEmitter } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ActiveFolderHolder } from './../folder-page/folder-page-services/ActiveFolderHolder';
 import { FileUploadProvider } from './FileUploader'
+import {UserHolderService} from './../user/UserHolderService'
+import { User } from './../user/User'
+import { UserProviderService } from './../profile/UserProviderService'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'folder-control-panel',
@@ -26,9 +30,26 @@ export class ControlPanelComponent {
     modal: ModalComponent;
     @ViewChild('updateModal')
     updateModal: ModalComponent;
+    @ViewChild('shareModal')
+    shareModal:ModalComponent;
 
-    constructor(private folderHolder: ActiveFolderHolder, private fileUploader: FileUploadProvider) {
+    currentUser: User;
+
+    ownFolders: boolean = true;
+
+    constructor(private folderHolder: ActiveFolderHolder,
+                private userHolder: UserHolderService,
+                private userProvider: UserProviderService,
+                private route: ActivatedRoute,
+                private fileUploader: FileUploadProvider) {
         this.folderImageUrl = "/app/folder-page/resource/folder.jpg";
+    }
+
+    ngOnInit() {
+        let parsedUserName;
+        this.route.params
+            .map((param) => (param['username']))
+            .subscribe((username) => this.ownFolders = username == null);
     }
 
     openModal() {
@@ -43,6 +64,31 @@ export class ControlPanelComponent {
         let folder = new Folder(title, this.folderImageUrl);
         this.createRequest.emit(folder);
         this.modal.close();
+    }
+
+    openShareModal() {
+        let activeObject = this.folderHolder.getActiveObject();
+        this.userProvider.getUser(this.userHolder.getCurrentUser().username)
+            .subscribe((user: User) => this.saveFriendUserInfo(user),
+                        error => console.log(error));
+
+    }
+
+    saveFriendUserInfo(user: User) {
+        this.currentUser = user;
+        this.shareModal.open();
+    }
+
+    giveReadPermissions(friend) {
+        let isFolder = !this.isObjectFile(this.folderHolder.getActiveObject());
+        this.userProvider.createReadPermissionRequest(isFolder, this.folderHolder.getActiveObject()._id.$oid, friend.username)
+            .subscribe((res: string) => console.log(res));
+    }
+
+    denyReadPermissions(friend) {
+        let isFolder = !this.isObjectFile(this.folderHolder.getActiveObject());
+        this.userProvider.createDenyPermissionRequest(isFolder, this.folderHolder.getActiveObject()._id.$oid, friend.username)
+            .subscribe((res: string) => console.log(res));
     }
 
     updateObject(title: string) {
@@ -68,7 +114,7 @@ export class ControlPanelComponent {
     }
 
     isFolderMain() {
-        return this.folderHolder.getParentFolder().parent_id == null;
+        return this.folderHolder.getParentFolder().hasOwnProperty('parent_id') && this.folderHolder.getParentFolder().parent_id == null;
     }
 
     returnToPrevFolder() {
@@ -89,6 +135,10 @@ export class ControlPanelComponent {
 
     searchRequestPushed(query) {
         this.searchRequest.emit(query);
+    }
+
+    isObjectFile(object) {
+        return object.hasOwnProperty('filename');
     }
 
 }

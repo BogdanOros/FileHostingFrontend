@@ -18,6 +18,7 @@ import { SignUpComponent } from "./header/register/sign_up.component";
 import { MenuComponent } from "./menu/menu.component";
 import { ControlPanelComponent } from "./control-panel/control-panel.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { StatsComponent } from './stats/stats.component';
 import { ContactsComponent } from "./contacts/contacts.component";
 import { FolderMockService } from "./folder-page/folder-page-services/FolderMock";
 import { FoldersLoaderService } from "./folder-page/folder-page-services/FolderService";
@@ -41,9 +42,11 @@ export const AppRoutes: Routes = [
     { path: 'contacts', component: ContactsComponent },
     { path: 'contacts/profile/:username', component: ProfileComponent },
     { path: 'profile/:username', component: ProfileComponent },
+    { path: 'stats', component: StatsComponent },
     { path: 'folders', component: FolderPageComponent },
+    { path: 'folders/restart', redirectTo: '/folders', pathMatch: 'full' },
     { path: 'folders/:username', component: FolderPageComponent },
-    { path: 'profile/lol/folders/:username', redirectTo: '/folders/:username', pathMatch: 'full'}
+    { path: 'profile/:current/folders/:username', redirectTo: '/folders/:username', pathMatch: 'full'}
 ];
 
 @NgModule({
@@ -63,6 +66,7 @@ export const AppRoutes: Routes = [
         ControlPanelComponent,
         ProfileComponent,
         ContactsComponent,
+        StatsComponent,
         MenuComponent
     ],
     providers:[

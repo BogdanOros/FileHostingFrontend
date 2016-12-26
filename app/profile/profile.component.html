@@ -1,5 +1,5 @@
 <div class="profile-holder container">
-    <div *ngIf="isLoaded" class="inner-profile-holder">
+    <div *ngIf="isLoaded && userHolder.isUserAuthorized()" class="inner-profile-holder">
         <h3>User profile</h3>
         <div class="form-group">
             <label for="username">Username:</label>
@@ -17,9 +17,12 @@
             <label for="lastname">Last name:</label>
             <span id="lastname">{{user.last_name}}</span>
         </div>
+        <div *ngIf="ownUser" class="form-group">
+            <input class="btn btn-primary btn-in-modal" value="Change password" (click)="openChangePasswordModal()"/>
+        </div>
     </div>
 </div>
-<div *ngIf="isLoaded && showUserRequests()" class="requests-holder container">
+<div *ngIf="isLoaded && showUserRequests() && userHolder.isUserAuthorized()" class="requests-holder container">
     <h3>Active requests: </h3>
     <div *ngFor="let request of user.requests">
         <div class="request-background">
@@ -42,8 +45,8 @@
         </div>
     </div>
 </div>
-s
-<div *ngIf="isLoaded" class="requests-holder container">
+
+<div *ngIf="isLoaded  && userHolder.isUserAuthorized()" class="requests-holder container">
     <div *ngFor="let friend of user.friends">
         <div class="friend-block" >
             <img class="contact-image" src="/app/contacts/resources/simple.png">
@@ -58,3 +61,20 @@ s
         </div>
     </div>
 </div>
+
+<modal #changePasswordModal class="modal-div">
+    <div class="modal-title-container">
+        <h3 class="modal-title">Change password</h3>
+    </div>
+    <div class="modal-in-container">
+        <div class="form-group">
+            <label for="first-pass">Enter password:</label>
+            <input #updatePassword type="password" class="form-control" id="first-pass">
+        </div>
+        <div class="form-group">
+            <label for="second_pass">Enter password again:</label>
+            <input #updatePasswordSecond type="password" class="form-control" id="second_pass">
+        </div>
+        <input type="submit" value="Change" class="btn btn-primary btn-in-modal" (click)="changePassword(updatePassword.value, updatePasswordSecond.value)">
+    </div>
+</modal>

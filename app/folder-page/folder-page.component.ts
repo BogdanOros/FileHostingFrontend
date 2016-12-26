@@ -53,7 +53,19 @@ export class FolderPageComponent {
         };
     }
     ngOnInit() {
-         if (this.userService.isUserAuthorized()) {
+        let parsedUserName;
+        this.route.params
+            .map((param) => (param['username']))
+            .subscribe((username) => parsedUserName = username);
+        if (parsedUserName != null) {
+            this.folderProvider.getAll(parsedUserName).
+            subscribe(
+                (data:Folder) => this.onFirstDownload(data),
+                error => console.log(error),
+                () => this.dataLoaded()
+            );
+        }
+        else if (this.userService.isUserAuthorized()) {
             this.folderProvider.getAll(this.userService.getCurrentUser().username).
             subscribe(
                 (data:Folder) => this.onFirstDownload(data),
@@ -76,10 +88,12 @@ export class FolderPageComponent {
         if (this.folder.is_main) {
             this.folderHolder.saveMainFolder(this.folder);
         }
+        this.folderHolder.saveActiveObject(null);
         this.folderHolder.saveActiveFolder(this.folder);
         this.subfolders = this.folder.subfolders;
         this.files = this.folder.files;
         this.isLoaded = true;
+        this.userService.setDataLoaded(true);
     }
 
     appendFolder(folder) {
@@ -155,11 +169,16 @@ export class FolderPageComponent {
         let contentType = this.fileHelperService.getContentType(file.type);
         let blobed = this.base64toBlob(blob._body.substring(1, blob._body.length - 1), contentType);
         var blobUrl = URL.createObjectURL(blobed);
-        console.log(blobUrl);
         let filename =  this.fileHelperService.getCorrectFileName(file);
         this.download(blobed, filename, contentType);
         // window.location = blobUrl;
     }
+
+    showFile(file) {
+        this.fileUploader.downloadFileRequest(file._id.$oid)
+            .subscribe((data) => this.createFileFromBlob(data, file));
+    }
+
 
     base64toBlob(base64Data, contentType) {
         contentType = contentType || '';

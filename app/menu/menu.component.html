@@ -1,4 +1,4 @@
-<div *ngIf="dataLoaded" class="background-filler">
+<div *ngIf="userHolder.isUserAuthorized()" class="background-filler">
     <div class="menu-image">
         <img src="/app/menu/resources/hostingimage.png">
     </div>
@@ -8,13 +8,18 @@
         </a>
     </div>
     <div class="menu-element-filler">
-        <a [routerLink] = '["profile", loggedUser.username]' class="menu-element">
+        <a [routerLink] = '["profile", userHolder.getCurrentUser().username]' class="menu-element">
             Profile
         </a>
     </div>
     <div class="menu-element-filler">
         <a [routerLink] = '["contacts"]' class="menu-element">
             Contacts
+        </a>
+    </div>
+    <div class="menu-element-filler">
+        <a [routerLink] = '["stats"]' class="menu-element">
+            Statistics
         </a>
     </div>
 </div>

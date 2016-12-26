@@ -14,6 +14,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var UserHolderService = (function () {
     function UserHolderService() {
+        this.dataLoaded = this.isUserAuthorized();
     }
     UserHolderService.prototype.saveLastQueryUsers = function (users) {
         this.lastQueryUsers = users;
@@ -32,6 +33,12 @@ var UserHolderService = (function () {
     };
     UserHolderService.prototype.clearAuthorizedUser = function () {
         this.currentUser = null;
+    };
+    UserHolderService.prototype.setDataLoaded = function (loaded) {
+        this.dataLoaded = loaded;
+    };
+    UserHolderService.prototype.getDataLoaded = function (loaded) {
+        return this.dataLoaded;
     };
     UserHolderService = __decorate([
         core_1.Injectable(), 

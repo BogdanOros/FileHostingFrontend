@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by talizorah on 16.19.12.
  */
 var core_1 = require('@angular/core');
+var ng2_bs3_modal_1 = require('ng2-bs3-modal/ng2-bs3-modal');
 var router_1 = require('@angular/router');
 var UserHolderService_1 = require('../user/UserHolderService');
 var UserProviderService_1 = require('./UserProviderService');
@@ -20,6 +21,7 @@ var ProfileComponent = (function () {
         this.userProvider = userProvider;
         this.route = route;
         this.userHolder = userHolder;
+        this.ownUser = true;
         this.isLoaded = false;
     }
     ProfileComponent.prototype.ngOnInit = function () {
@@ -29,11 +31,15 @@ var ProfileComponent = (function () {
             .subscribe(function (username) {
             _this.userProvider
                 .getUser(username)
-                .subscribe(function (user) { return _this.user = user; }, function (error) { return console.log(error); }, function () { return _this.isLoaded = true; });
+                .subscribe(function (user) { return _this.checkOwnUser(user); }, function (error) { return console.log(error); }, function () { return _this.isLoaded = true; });
         });
     };
+    ProfileComponent.prototype.checkOwnUser = function (user) {
+        this.user = user;
+        this.ownUser = this.userHolder.getCurrentUser().username == user.username;
+    };
     ProfileComponent.prototype.showUserRequests = function () {
-        return this.user.hasOwnProperty('requests') && this.user.requests.lenght > 0;
+        return this.userHolder.isUserAuthorized() && this.user.hasOwnProperty('requests');
     };
     ProfileComponent.prototype.showCorrectDate = function (data) {
         return new Date(data);
@@ -51,8 +57,20 @@ var ProfileComponent = (function () {
     ProfileComponent.prototype.removeFromRequest = function (request) {
         this.user.requests.splice(this.user.requests.indexOf(request, 0), 1);
     };
-    ProfileComponent.prototype.openUsersFolders = function (friend) {
+    ProfileComponent.prototype.openChangePasswordModal = function () {
+        this.modal.open();
     };
+    ProfileComponent.prototype.changePassword = function (first_pass, second_pass) {
+        var _this = this;
+        if (first_pass.length > 0 && first_pass == second_pass) {
+            this.userProvider.createChangePasswordRequest(first_pass)
+                .subscribe(function (data) { return _this.modal.close(); });
+        }
+    };
+    __decorate([
+        core_1.ViewChild('changePasswordModal'), 
+        __metadata('design:type', ng2_bs3_modal_1.ModalComponent)
+    ], ProfileComponent.prototype, "modal", void 0);
     ProfileComponent = __decorate([
         core_1.Component({
             selector: 'profile',

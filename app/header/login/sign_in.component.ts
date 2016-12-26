@@ -9,6 +9,8 @@ import { LoginProviderService } from './login-services/loginService';
 import { UserHolderService } from '../../user/UserHolderService';
 import { LocalStorageProvider } from './login-services/localStorageUpdater';
 
+import { Router } from '@angular/router'
+
 import { User } from '../../user/User';
 import { LoginMeta } from './login-services/loginData';
 
@@ -40,6 +42,7 @@ export class SignInComponent {
     constructor(
         private loginService: LoginProviderService,
         private localStorageProvider : LocalStorageProvider,
+        private router : Router,
         private userHolder: UserHolderService
     ) {
         this.userHolder.setCurrentUser(this.localStorageProvider.getUserIfExists());
@@ -79,6 +82,7 @@ export class SignInComponent {
         this.userHolder.clearAuthorizedUser();
         this.localStorageProvider.removeUsersDataFromLocalStorage();
         this.changeButtonText();
+        this.userHolder.setDataLoaded(false);
     }
 
     authorizationFinished() {
@@ -86,6 +90,8 @@ export class SignInComponent {
         this.localStorageProvider.saveUsersSignInMetadata(this.loginData.username, this.loginData.password, this.loginData.remembered);
         this.changeButtonText();
         this.loginModal.close();
+        this.userHolder.setDataLoaded(true);
+        this.router.navigate(['/profile', this.userHolder.getCurrentUser().username]);
     }
 
     checkInputEntered() {

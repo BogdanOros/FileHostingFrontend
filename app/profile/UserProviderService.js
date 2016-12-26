@@ -22,15 +22,39 @@ var UserProviderService = (function () {
         this.base_url = "http://192.168.2.117:8000";
         this.headers = new http_1.Headers();
         this.headers.append('Content-Type', 'multipart/form-data');
-        if (this.userService.isUserAuthorized()) {
-            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
-        }
     }
     UserProviderService.prototype.getUser = function (username) {
+        if (this.userService.isUserAuthorized()) {
+            this.headers = new http_1.Headers();
+            this.headers.append('Content-Type', 'multipart/form-data');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
+        }
         return this.http.get(this.base_url + '/u/' + username, { headers: this.headers })
             .map(function (response) { return response.json(); });
     };
+    UserProviderService.prototype.createReadPermissionRequest = function (isFolder, id, username) {
+        return this.createPermissionRequest(isFolder, id, username, this.base_url + '/give_read_permission');
+    };
+    UserProviderService.prototype.createDenyPermissionRequest = function (isFolder, id, username) {
+        return this.createPermissionRequest(isFolder, id, username, this.base_url + '/deny_read_permission');
+    };
+    UserProviderService.prototype.createPermissionRequest = function (isFolder, id, username, url) {
+        var toAdd;
+        if (isFolder) {
+            toAdd = JSON.stringify({ folder_id: id, username: username });
+        }
+        else {
+            toAdd = JSON.stringify({ file_id: id, username: username });
+        }
+        return this.http.post(url, toAdd, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
     UserProviderService.prototype.searchForUsers = function (query) {
+        if (this.userService.isUserAuthorized()) {
+            this.headers = new http_1.Headers();
+            this.headers.append('Content-Type', 'multipart/form-data');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
+        }
         var toAdd = JSON.stringify({ query: query });
         return this.http.post(this.base_url + '/search_user', toAdd, { headers: this.headers })
             .map(function (response) { return response.json(); });
@@ -48,6 +72,34 @@ var UserProviderService = (function () {
     UserProviderService.prototype.declineRequest = function (requestId) {
         var toAdd = JSON.stringify({ request_id: requestId });
         return this.http.post(this.base_url + '/decline_request', toAdd, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
+    UserProviderService.prototype.createStatsRequest = function () {
+        if (this.userService.isUserAuthorized()) {
+            this.headers = new http_1.Headers();
+            this.headers.append('Content-Type', 'multipart/form-data');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
+        }
+        return this.http.get(this.base_url + '/statistics', { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
+    UserProviderService.prototype.createChangePasswordRequest = function (password) {
+        if (this.userService.isUserAuthorized()) {
+            this.headers = new http_1.Headers();
+            this.headers.append('Content-Type', 'multipart/form-data');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
+        }
+        var toAdd = JSON.stringify({ password: password });
+        return this.http.post(this.base_url + '/change_password', toAdd, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
+    UserProviderService.prototype.createRestoreDatabaseRequest = function () {
+        if (this.userService.isUserAuthorized()) {
+            this.headers = new http_1.Headers();
+            this.headers.append('Content-Type', 'multipart/form-data');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
+        }
+        return this.http.get(this.base_url + '/restore_db', { headers: this.headers })
             .map(function (response) { return response.json(); });
     };
     UserProviderService = __decorate([

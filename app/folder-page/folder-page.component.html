@@ -1,4 +1,4 @@
-<div *ngIf="isLoaded" class="folder-holder">
+<div *ngIf="userService.isUserAuthorized()" class="folder-holder">
     <folder-control-panel
             (updateRequest)="updateObject($event)"
             (deleteRequest)="deleteObject($event)"
@@ -20,4 +20,5 @@
         </div>
     </div>
 </div>
+
 

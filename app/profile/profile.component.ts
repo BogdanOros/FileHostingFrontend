@@ -1,8 +1,8 @@
 /**
  * Created by talizorah on 16.19.12.
  */
-import {Component} from '@angular/core';
-
+import {Component, ViewChild} from '@angular/core';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { ActivatedRoute } from '@angular/router';
 
 import { UserHolderService } from '../user/UserHolderService';
@@ -19,6 +19,10 @@ export class ProfileComponent {
     user: User;
     isLoaded: boolean;
 
+    @ViewChild('changePasswordModal')
+    modal: ModalComponent;
+    ownUser: boolean = true;
+
     constructor(private userProvider: UserProviderService,
                 private route: ActivatedRoute,
                 private userHolder: UserHolderService) {
@@ -31,12 +35,17 @@ export class ProfileComponent {
             .subscribe((username) => {
                 this.userProvider
                     .getUser(username)
-                    .subscribe(user => this.user = user, error => console.log(error), () => this.isLoaded = true);
+                    .subscribe(user => this.checkOwnUser(user), error => console.log(error), () => this.isLoaded = true);
             });
     }
 
+    checkOwnUser(user) {
+        this.user = user;
+        this.ownUser = this.userHolder.getCurrentUser().username == user.username;
+    }
+
     showUserRequests() {
-        return this.user.hasOwnProperty('requests') && this.user.requests.lenght > 0;
+        return this.userHolder.isUserAuthorized() && this.user.hasOwnProperty('requests');
     }
 
     showCorrectDate(data) {
@@ -57,8 +66,15 @@ export class ProfileComponent {
         this.user.requests.splice(this.user.requests.indexOf(request, 0), 1);
     }
 
-    openUsersFolders(friend) {
-        
+    openChangePasswordModal() {
+        this.modal.open();
+    }
+
+    changePassword(first_pass: string, second_pass: string) {
+        if (first_pass.length > 0 && first_pass == second_pass) {
+            this.userProvider.createChangePasswordRequest(first_pass)
+                .subscribe((data) => this.modal.close())
+        }
     }
 
 }

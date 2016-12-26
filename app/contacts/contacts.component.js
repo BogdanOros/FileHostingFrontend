@@ -61,6 +61,7 @@ var ContactsComponent = (function () {
         }
     };
     ContactsComponent.prototype.requestIsSent = function (user) {
+        user.is_friend = 2;
         user.imageUrl = '/app/contacts/resources/requested.png';
         user.currentImageUrl = user.imageUrl;
     };
