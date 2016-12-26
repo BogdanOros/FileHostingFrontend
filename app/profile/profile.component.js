@@ -37,6 +37,7 @@ var ProfileComponent = (function () {
     ProfileComponent.prototype.checkOwnUser = function (user) {
         this.user = user;
         this.ownUser = this.userHolder.getCurrentUser().username == user.username;
+        this.userHolder.setCurrentUser(user);
     };
     ProfileComponent.prototype.showUserRequests = function () {
         return this.userHolder.isUserAuthorized() && this.user.hasOwnProperty('requests');

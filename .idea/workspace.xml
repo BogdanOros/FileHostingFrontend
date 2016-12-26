@@ -3,15 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="10450ea1-a728-4309-92c6-3fc49fb9379b" name="Default" comment="Merge branch 'refactor-sign-in' of https://github.com/BogdanOros/FileHostingFrontend into refactor-sign-in&#10;&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/control-panel/control-panel.css" afterPath="$PROJECT_DIR$/app/control-panel/control-panel.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/profile/UserProviderService.js" afterPath="$PROJECT_DIR$/app/profile/UserProviderService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/profile/UserProviderService.js.map" afterPath="$PROJECT_DIR$/app/profile/UserProviderService.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/profile/UserProviderService.ts" afterPath="$PROJECT_DIR$/app/profile/UserProviderService.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/profile/profile.component.html" afterPath="$PROJECT_DIR$/app/profile/profile.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/profile/profile.component.js" afterPath="$PROJECT_DIR$/app/profile/profile.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/profile/profile.component.js.map" afterPath="$PROJECT_DIR$/app/profile/profile.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/profile/profile.component.ts" afterPath="$PROJECT_DIR$/app/profile/profile.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/profile/profile.css" afterPath="$PROJECT_DIR$/app/profile/profile.css" />
     </list>
     <ignored path="file-storage-front.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,43 +47,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="control-panel.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="control-panel.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/control-panel/control-panel.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
+            <state relative-caret-position="130">
+              <caret line="106" column="18" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/styles.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/app.module.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="63" column="24" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
-              <folding>
-                <element signature="e#351#415#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="profile.component.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="profile.component.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/profile/profile.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="79" column="31" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="31" />
+            <state relative-caret-position="386">
+              <caret line="55" column="28" selection-start-line="55" selection-start-column="28" selection-end-line="55" selection-end-column="28" />
               <folding>
                 <element signature="e#45#96#0" expanded="true" />
               </folding>
@@ -124,9 +96,31 @@
       <file leaf-file-name="stats.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/stats/stats.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+            <state relative-caret-position="197">
+              <caret line="19" column="60" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="60" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/user/User.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserHolderService.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/user/UserHolderService.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="278">
+              <caret line="31" column="18" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="18" />
+              <folding>
+                <element signature="e#45#88#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -206,15 +200,15 @@
         <option value="$PROJECT_DIR$/app/control-panel/control-panel.component.html" />
         <option value="$PROJECT_DIR$/app/control-panel/FileUploader.ts" />
         <option value="$PROJECT_DIR$/app/user/User.ts" />
-        <option value="$PROJECT_DIR$/app/stats/stats.component.html" />
         <option value="$PROJECT_DIR$/app/stats/stats.css" />
         <option value="$PROJECT_DIR$/app/stats/stats.component.ts" />
         <option value="$PROJECT_DIR$/app/folder-page/folder-page.component.ts" />
         <option value="$PROJECT_DIR$/app/profile/UserProviderService.ts" />
         <option value="$PROJECT_DIR$/app/profile/profile.css" />
         <option value="$PROJECT_DIR$/app/profile/profile.component.html" />
-        <option value="$PROJECT_DIR$/app/profile/profile.component.ts" />
         <option value="$PROJECT_DIR$/app/control-panel/control-panel.css" />
+        <option value="$PROJECT_DIR$/app/stats/stats.component.html" />
+        <option value="$PROJECT_DIR$/app/profile/profile.component.ts" />
       </list>
     </option>
   </component>
@@ -285,6 +279,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="file-storage-front" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="file-storage-front" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -945,7 +957,7 @@
       <workItem from="1482273465663" duration="7186000" />
       <workItem from="1482536514905" duration="11538000" />
       <workItem from="1482622376467" duration="10708000" />
-      <workItem from="1482667478709" duration="35192000" />
+      <workItem from="1482667478709" duration="36389000" />
     </task>
     <task id="LOCAL-00001" summary="Refacored sign in modal">
       <created>1482275777274</created>
@@ -982,11 +994,18 @@
       <option name="project" value="LOCAL" />
       <updated>1482671997567</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Merge branch 'refactor-sign-in' of https://github.com/BogdanOros/FileHostingFrontend into refactor-sign-in&#10;&#10;">
+      <created>1482720811434</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1482720811435</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="203680000" />
+    <option name="totallyTimeSpent" value="204877000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -995,13 +1014,14 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33179012" sideWeight="0.50278884" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33024693" sideWeight="0.49721116" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33024693" sideWeight="0.49721116" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25099602" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1035,9 +1055,9 @@
     <MESSAGE value="Login component refactored" />
     <MESSAGE value="Fixed bug, when login modal was initing with error message" />
     <MESSAGE value="Started working on landing page" />
-    <MESSAGE value="Merge branch 'refactor-sign-in' of https://github.com/BogdanOros/FileHostingFrontend into refactor-sign-in&#10;&#10;" />
     <MESSAGE value="Version 0.1&#10;&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.1&#10;&#10;" />
+    <MESSAGE value="Merge branch 'refactor-sign-in' of https://github.com/BogdanOros/FileHostingFrontend into refactor-sign-in&#10;&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'refactor-sign-in' of https://github.com/BogdanOros/FileHostingFrontend into refactor-sign-in&#10;&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1279,29 +1299,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/user/User.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/control-panel/FileUploader.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-48">
           <caret line="29" column="41" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="41" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/user/UserHolderService.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="31" column="18" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="18" />
-          <folding>
-            <element signature="e#45#88#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1421,24 +1423,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/stats/stats.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/profile/UserProviderService.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="123" column="26" selection-start-line="123" selection-start-column="26" selection-end-line="123" selection-end-column="26" />
-          <folding>
-            <element signature="e#45#87#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/profile/profile.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1452,16 +1436,6 @@
         <state relative-caret-position="233">
           <caret line="40" column="51" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/profile/profile.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="79" column="31" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="31" />
-          <folding>
-            <element signature="e#45#96#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1485,9 +1459,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/control-panel/control-panel.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
+        <state relative-caret-position="130">
+          <caret line="106" column="18" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/profile/UserProviderService.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="123" column="26" selection-start-line="123" selection-start-column="26" selection-end-line="123" selection-end-column="26" />
+          <folding>
+            <element signature="e#45#87#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/stats/stats.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="19" column="60" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/user/User.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/user/UserHolderService.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="31" column="18" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="18" />
+          <folding>
+            <element signature="e#45#88#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/profile/profile.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="55" column="28" selection-start-line="55" selection-start-column="28" selection-end-line="55" selection-end-column="28" />
+          <folding>
+            <element signature="e#45#96#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

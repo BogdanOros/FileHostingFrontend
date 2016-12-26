@@ -42,6 +42,7 @@ export class ProfileComponent {
     checkOwnUser(user) {
         this.user = user;
         this.ownUser = this.userHolder.getCurrentUser().username == user.username;
+        this.userHolder.setCurrentUser(user);
     }
 
     showUserRequests() {
