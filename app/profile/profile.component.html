@@ -25,7 +25,6 @@
 <div *ngIf="isLoaded && showUserRequests() && userHolder.isUserAuthorized()" class="requests-holder container">
     <h3>Active requests: </h3>
     <div *ngFor="let request of user.requests">
-        <div class="request-background">
             <div class="request-padding">
                 <div class="form-group">
                     <label for="request_username">Username:</label>
@@ -33,15 +32,16 @@
                 </div>
                 <div class="form-group">
                     <label for="request_data">Date:</label>
-                    <span id="request_data">{{showCorrectDate(request.date.$date)}}</span>
+                    <span id="request_data">{{showCorrectDate(request.date.$date) | date: 'dd/MM/yyyy'}}</span>
                 </div>
-                <div class="btn btn-primary btn-control" (click)="acceptRequest(request)">
-                    Accept
+                <div>
+                    <div class="btn btn-primary btn-in-modal" (click)="acceptRequest(request)">
+                        Accept
+                    </div>
+                    <div class="btn btn-primary btn-in-modal" (click)="declineRequest(request)">
+                        Decline
+                    </div>
                 </div>
-                <div class="btn btn-primary btn-control" (click)="declineRequest(request)">
-                    Decline
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -51,12 +51,17 @@
         <div class="friend-block" >
             <img class="contact-image" src="/app/contacts/resources/simple.png">
             <p style="text-align: center">{{friend.username}}</p>
-            <div class="btn btn-control" (click)="openUsersFolders(friend)">
-                <a [routerLink] = '["folders", friend.username]'>
-                    <div>
-                        {{friend.username}}`s profile
-                    </div>
-                </a>
+            <div class="form-group">
+                <div class="btn btn-primary btn-in-modal" (click)="openUsersFolders(friend)">
+                    <a [routerLink] = '["folders", friend.username]'>
+                        <div>
+                            {{friend.username}}`s profile
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-in-modal" value="Remove" (click)="deleteFromFriends(friend)"/>
             </div>
         </div>
     </div>

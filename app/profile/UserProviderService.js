@@ -102,6 +102,16 @@ var UserProviderService = (function () {
         return this.http.get(this.base_url + '/restore_db', { headers: this.headers })
             .map(function (response) { return response.json(); });
     };
+    UserProviderService.prototype.createDeleteFromFriendsRequest = function (id) {
+        if (this.userService.isUserAuthorized()) {
+            this.headers = new http_1.Headers();
+            this.headers.append('Content-Type', 'multipart/form-data');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
+        }
+        var toAdd = JSON.stringify({ user_id: id });
+        return this.http.post(this.base_url + '/delete_friend', toAdd, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
     UserProviderService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, UserHolderService_1.UserHolderService])

@@ -67,6 +67,11 @@ var ProfileComponent = (function () {
                 .subscribe(function (data) { return _this.modal.close(); });
         }
     };
+    ProfileComponent.prototype.deleteFromFriends = function (friend) {
+        var _this = this;
+        this.userProvider.createDeleteFromFriendsRequest(friend.id)
+            .subscribe(function (data) { return _this.user.friends.splice(_this.user.friends.indexOf(friend, 0), 1); });
+    };
     __decorate([
         core_1.ViewChild('changePasswordModal'), 
         __metadata('design:type', ng2_bs3_modal_1.ModalComponent)

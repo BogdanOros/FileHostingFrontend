@@ -113,4 +113,15 @@ export class UserProviderService {
             .map((response: Response) => <string>response.json());
     }
 
+    public createDeleteFromFriendsRequest(id): Observable<string> {
+        if (this.userService.isUserAuthorized()) {
+            this.headers = new Headers();
+            this.headers.append('Content-Type', 'multipart/form-data');
+            this.headers.append('Authorization', 'Token ' + this.userService.getCurrentUser().token);
+        }
+        let toAdd = JSON.stringify({user_id: id});
+        return this.http.post(this.base_url + '/delete_friend', toAdd, {headers: this.headers})
+            .map((response: Response) => <string>response.json());
+    }
+
 }

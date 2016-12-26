@@ -8,7 +8,6 @@
 }
 a:hover{
     text-decoration: none;
-    color:  #0275d8;
 }
 
 .request-background {
@@ -35,7 +34,7 @@ a:hover{
     background-color: whitesmoke;
     border-radius: 5px;
     width: 180px;
-    height: 240px;
+    height: 320px;
 }
 
 
@@ -84,6 +83,10 @@ a:hover{
     background-color: #767676;
     border-color: #767676;
     text-shadow: 2px 2px 1px rgba(0,0,0,0.3);
+    color: #fffb2f;
+}
+
+a {
     color: #fffb2f;
 }
 

@@ -77,4 +77,9 @@ export class ProfileComponent {
         }
     }
 
+    deleteFromFriends(friend) {
+        this.userProvider.createDeleteFromFriendsRequest(friend.id)
+            .subscribe((data) => this.user.friends.splice(this.user.friends.indexOf(friend, 0), 1));
+    }
+
 }
