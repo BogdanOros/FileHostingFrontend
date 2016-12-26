@@ -1,7 +1,14 @@
 .profile-holder {
     margin-left: 240px;
     margin-top: 20px;
-    background-color: darkgray;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    border: 1px solid darkgrey;
+    width: 81%;
+}
+a:hover{
+    text-decoration: none;
+    color:  #0275d8;
 }
 
 .request-background {
@@ -13,22 +20,41 @@
 }
 
 .btn-control {
-    background-color: darkgray;
-    border-color: darkgray;
+    background-color: whitesmoke;
+    /*border-color: darkgray;*/
     color: #fffb2f;
-    margin: 0 auto;
+    margin-left: 18%;
+
+}
+
+.btn-control:hover{
+     background-color: lightgrey;
+}
+
+.friend-block{
+    background-color: whitesmoke;
+    border-radius: 5px;
+    width: 180px;
+    height: 240px;
 }
 
 
 .requests-holder {
     margin-left: 240px;
     margin-top: 20px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    border: 1px solid darkgrey;
+   width: 81%;
 }
 
 .inner-profile-holder {
     padding: 20px;
+
 }
 .contact-image {
+    margin-top: 2%;
     width: 150px;
     height: 150px;
+    margin-left: 7%;
 }
